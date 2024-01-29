@@ -13,6 +13,18 @@
 		8484BE0C2B66A21800A75E7F /* notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE0A2B66A21800A75E7F /* notes.xcdatamodeld */; };
 		8484BE0E2B66A21900A75E7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8484BE0D2B66A21900A75E7F /* Assets.xcassets */; };
 		8484BE2E2B6778FA00A75E7F /* misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE2D2B6778FA00A75E7F /* misc.swift */; };
+		8484BE322B677EDE00A75E7F /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE312B677EDE00A75E7F /* AppAssembly.swift */; };
+		8484BE352B677F5900A75E7F /* UIViewController + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE342B677F5900A75E7F /* UIViewController + ext.swift */; };
+		8484BE372B67805500A75E7F /* MainProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE362B67805500A75E7F /* MainProtocols.swift */; };
+		8484BE392B6780CC00A75E7F /* MainConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE382B6780CC00A75E7F /* MainConfigurator.swift */; };
+		8484BE3B2B67811C00A75E7F /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE3A2B67811C00A75E7F /* MainPresenter.swift */; };
+		8484BE3D2B67823A00A75E7F /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE3C2B67823A00A75E7F /* MainInteractor.swift */; };
+		8484BE3F2B67826500A75E7F /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE3E2B67826500A75E7F /* MainRouter.swift */; };
+		8484BE422B67A97400A75E7F /* TopBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE412B67A97400A75E7F /* TopBannerCell.swift */; };
+		8484BE442B67ABEE00A75E7F /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE432B67ABEE00A75E7F /* YearCell.swift */; };
+		8484BE462B67AD7100A75E7F /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE452B67AD7100A75E7F /* NoteCell.swift */; };
+		8484BE482B67BAC800A75E7F /* MainVC + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE472B67BAC800A75E7F /* MainVC + ext.swift */; };
+		8484BE4A2B67BDC200A75E7F /* MainVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +36,18 @@
 		8484BE0D2B66A21900A75E7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8484BE122B66A21900A75E7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8484BE2D2B6778FA00A75E7F /* misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = misc.swift; sourceTree = "<group>"; };
+		8484BE312B677EDE00A75E7F /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
+		8484BE342B677F5900A75E7F /* UIViewController + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + ext.swift"; sourceTree = "<group>"; };
+		8484BE362B67805500A75E7F /* MainProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProtocols.swift; sourceTree = "<group>"; };
+		8484BE382B6780CC00A75E7F /* MainConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainConfigurator.swift; sourceTree = "<group>"; };
+		8484BE3A2B67811C00A75E7F /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		8484BE3C2B67823A00A75E7F /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		8484BE3E2B67826500A75E7F /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		8484BE412B67A97400A75E7F /* TopBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBannerCell.swift; sourceTree = "<group>"; };
+		8484BE432B67ABEE00A75E7F /* YearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
+		8484BE452B67AD7100A75E7F /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		8484BE472B67BAC800A75E7F /* MainVC + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC + ext.swift"; sourceTree = "<group>"; };
+		8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCLayouts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,13 +81,15 @@
 		8484BE002B66A21800A75E7F /* notes */ = {
 			isa = PBXGroup;
 			children = (
+				8484BE332B677F2100A75E7F /* Extensions */,
+				8484BE2F2B677E8C00A75E7F /* Modules */,
 				8484BE012B66A21800A75E7F /* AppDelegate.swift */,
 				8484BE032B66A21800A75E7F /* SceneDelegate.swift */,
-				8484BE052B66A21800A75E7F /* MainViewController.swift */,
 				8484BE0D2B66A21900A75E7F /* Assets.xcassets */,
 				8484BE122B66A21900A75E7F /* Info.plist */,
 				8484BE0A2B66A21800A75E7F /* notes.xcdatamodeld */,
 				8484BE2D2B6778FA00A75E7F /* misc.swift */,
+				8484BE312B677EDE00A75E7F /* AppAssembly.swift */,
 			);
 			path = notes;
 			sourceTree = "<group>";
@@ -73,6 +99,48 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8484BE2F2B677E8C00A75E7F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				8484BE302B677E9200A75E7F /* Main */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		8484BE302B677E9200A75E7F /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8484BE402B67A96400A75E7F /* Cells */,
+				8484BE052B66A21800A75E7F /* MainViewController.swift */,
+				8484BE362B67805500A75E7F /* MainProtocols.swift */,
+				8484BE382B6780CC00A75E7F /* MainConfigurator.swift */,
+				8484BE3A2B67811C00A75E7F /* MainPresenter.swift */,
+				8484BE3C2B67823A00A75E7F /* MainInteractor.swift */,
+				8484BE3E2B67826500A75E7F /* MainRouter.swift */,
+				8484BE472B67BAC800A75E7F /* MainVC + ext.swift */,
+				8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		8484BE332B677F2100A75E7F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8484BE342B677F5900A75E7F /* UIViewController + ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8484BE402B67A96400A75E7F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8484BE412B67A97400A75E7F /* TopBannerCell.swift */,
+				8484BE432B67ABEE00A75E7F /* YearCell.swift */,
+				8484BE452B67AD7100A75E7F /* NoteCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,9 +216,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8484BE372B67805500A75E7F /* MainProtocols.swift in Sources */,
 				8484BE2E2B6778FA00A75E7F /* misc.swift in Sources */,
+				8484BE392B6780CC00A75E7F /* MainConfigurator.swift in Sources */,
+				8484BE4A2B67BDC200A75E7F /* MainVCLayouts.swift in Sources */,
 				8484BE062B66A21800A75E7F /* MainViewController.swift in Sources */,
+				8484BE442B67ABEE00A75E7F /* YearCell.swift in Sources */,
+				8484BE352B677F5900A75E7F /* UIViewController + ext.swift in Sources */,
+				8484BE422B67A97400A75E7F /* TopBannerCell.swift in Sources */,
+				8484BE482B67BAC800A75E7F /* MainVC + ext.swift in Sources */,
+				8484BE3F2B67826500A75E7F /* MainRouter.swift in Sources */,
+				8484BE3B2B67811C00A75E7F /* MainPresenter.swift in Sources */,
+				8484BE3D2B67823A00A75E7F /* MainInteractor.swift in Sources */,
 				8484BE022B66A21800A75E7F /* AppDelegate.swift in Sources */,
+				8484BE322B677EDE00A75E7F /* AppAssembly.swift in Sources */,
+				8484BE462B67AD7100A75E7F /* NoteCell.swift in Sources */,
 				8484BE042B66A21800A75E7F /* SceneDelegate.swift in Sources */,
 				8484BE0C2B66A21800A75E7F /* notes.xcdatamodeld in Sources */,
 			);
