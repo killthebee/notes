@@ -4,6 +4,10 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     var presenter: MainPresenterProtocol?
     
+    @objc func thumbsUpButtonPressed(_ sender: UIButton) {
+        sender.startAnimatingPressActions()
+    }
+    
     lazy var collectionView : UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
@@ -44,6 +48,21 @@ class MainViewController: UIViewController, MainViewProtocol {
          }
     }
     
+    lazy var addNoteButton: UIButton = {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setImage(UIImage(systemName: "pencil.and.outline"), for: .normal)
+        button.addTarget(
+//            MainViewController.self,
+            self,
+            action: #selector(thumbsUpButtonPressed),
+            for: .touchUpInside
+        )
+        button.backgroundColor = dateColor
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -58,28 +77,49 @@ class MainViewController: UIViewController, MainViewProtocol {
     }
     
     private func addSubviews() {
-        [collectionView,
+        [collectionView, addNoteButton
         ].forEach{view.addSubview($0)}
     }
     
     // MARK: Layout -
     private func disableAutoresizing() {
-        [collectionView,
+        [collectionView, addNoteButton
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
+    private var buttonBottomConstraint: NSLayoutConstraint?
+    
     func setUpConstrains() {
+        buttonBottomConstraint = addNoteButton.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor,
+            constant: -1 * view.frame.height * 0.1
+        )
+        
         let constraints: [NSLayoutConstraint] = [
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor
             ),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.01)
+            collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.01),
+            
+            addNoteButton.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
+            ),
+            buttonBottomConstraint!,
+            addNoteButton.widthAnchor.constraint(equalToConstant: 50),
+            addNoteButton.heightAnchor.constraint(equalToConstant: 50),
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let buttonBottomConstraint = buttonBottomConstraint {
+            buttonBottomConstraint.constant = -1 * view.frame.height * 0.1
+        }
+        addNoteButton.layer.cornerRadius = 0.5 * addNoteButton.bounds.size.width
     }
 }
 
