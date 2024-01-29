@@ -45,6 +45,7 @@ extension MainViewController:
         else {
             fatalError("Unable deque cell...")
         }
+        cell.cellData = images
         
         return cell
     }

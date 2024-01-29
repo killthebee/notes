@@ -4,6 +4,17 @@ class NoteCell: UICollectionViewCell {
     
     static let cellIdentifier = "NotCellIdentifier"
     
+    var cellData : [UIImage?]? {
+        didSet {
+            guard let cellData = cellData else {return}
+            for noteImage in cellData {
+                let newImage = noteImage?.resized(toHeight: 40)
+                let imageView = UIImageView(image: newImage)
+                imagesStackView.addArrangedSubview(imageView)
+            }
+        }
+    }
+    
     private let dateLable: UILabel = {
         let lable = UILabel()
         lable.textColor = .white
@@ -34,10 +45,18 @@ class NoteCell: UICollectionViewCell {
     
     private let noteTextLable: UILabel = {
         let lable = UILabel()
-        lable.text = "Here is some of my notes"
+        lable.text = "Here is some of my notes fsafasasfsdgdsggwetedsfsdvdscsdffqwfasfdasdfwa"
         lable.textColor = .white
         
         return lable
+    }()
+    
+    private let imagesStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        
+        return stack
     }()
     
     override init(frame: CGRect) {
@@ -62,12 +81,12 @@ class NoteCell: UICollectionViewCell {
     }
     
     private func disableAutoresizing() {
-        [dateLable, headerLable, noteTextLable
+        [dateLable, headerLable, noteTextLable, imagesStackView
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
     private func addSubviews() {
-        [dateLable, headerLable, noteTextLable
+        [dateLable, headerLable, noteTextLable, imagesStackView
         ].forEach{addSubview($0)}
     }
     
@@ -98,7 +117,17 @@ class NoteCell: UICollectionViewCell {
                 equalTo: headerLable.leadingAnchor
             ),
             noteTextLable.trailingAnchor.constraint(equalTo: trailingAnchor),
-            noteTextLable.heightAnchor.constraint(equalToConstant: 20)
+            noteTextLable.heightAnchor.constraint(equalToConstant: 20),
+            
+            imagesStackView.topAnchor.constraint(
+                equalTo: noteTextLable.bottomAnchor,
+                constant: 5
+            ),
+            imagesStackView.heightAnchor.constraint(equalToConstant: 40),
+            imagesStackView.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: 20
+            ),
         ]
         
         NSLayoutConstraint.activate(constraints)

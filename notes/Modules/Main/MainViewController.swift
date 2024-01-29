@@ -4,6 +4,12 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     var presenter: MainPresenterProtocol?
     
+    let images: [UIImage?] = [
+        UIImage(named: "banner1"),
+        UIImage(named: "banner1"),
+//        UIImage(named: "banner1")
+    ]
+    
     @objc func thumbsUpButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
     }
@@ -53,7 +59,6 @@ class MainViewController: UIViewController, MainViewProtocol {
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "pencil.and.outline"), for: .normal)
         button.addTarget(
-//            MainViewController.self,
             self,
             action: #selector(thumbsUpButtonPressed),
             for: .touchUpInside

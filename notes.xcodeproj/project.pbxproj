@@ -26,6 +26,7 @@
 		8484BE482B67BAC800A75E7F /* MainVC + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE472B67BAC800A75E7F /* MainVC + ext.swift */; };
 		8484BE4A2B67BDC200A75E7F /* MainVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */; };
 		8484BE4C2B67E5EF00A75E7F /* UIButton + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */; };
+		8484BE4F2B67F1B500A75E7F /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		8484BE472B67BAC800A75E7F /* MainVC + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC + ext.swift"; sourceTree = "<group>"; };
 		8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCLayouts.swift; sourceTree = "<group>"; };
 		8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + ext.swift"; sourceTree = "<group>"; };
+		8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		8484BE002B66A21800A75E7F /* notes */ = {
 			isa = PBXGroup;
 			children = (
+				8484BE4D2B67E6A000A75E7F /* utilities */,
 				8484BE332B677F2100A75E7F /* Extensions */,
 				8484BE2F2B677E8C00A75E7F /* Modules */,
 				8484BE012B66A21800A75E7F /* AppDelegate.swift */,
@@ -90,7 +93,6 @@
 				8484BE0D2B66A21900A75E7F /* Assets.xcassets */,
 				8484BE122B66A21900A75E7F /* Info.plist */,
 				8484BE0A2B66A21800A75E7F /* notes.xcdatamodeld */,
-				8484BE2D2B6778FA00A75E7F /* misc.swift */,
 				8484BE312B677EDE00A75E7F /* AppAssembly.swift */,
 			);
 			path = notes;
@@ -132,6 +134,7 @@
 			children = (
 				8484BE342B677F5900A75E7F /* UIViewController + ext.swift */,
 				8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */,
+				8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -144,6 +147,14 @@
 				8484BE452B67AD7100A75E7F /* NoteCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		8484BE4D2B67E6A000A75E7F /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8484BE2D2B6778FA00A75E7F /* misc.swift */,
+			);
+			path = utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +233,7 @@
 				8484BE372B67805500A75E7F /* MainProtocols.swift in Sources */,
 				8484BE2E2B6778FA00A75E7F /* misc.swift in Sources */,
 				8484BE392B6780CC00A75E7F /* MainConfigurator.swift in Sources */,
+				8484BE4F2B67F1B500A75E7F /* UIImage + ext.swift in Sources */,
 				8484BE4A2B67BDC200A75E7F /* MainVCLayouts.swift in Sources */,
 				8484BE062B66A21800A75E7F /* MainViewController.swift in Sources */,
 				8484BE442B67ABEE00A75E7F /* YearCell.swift in Sources */,
