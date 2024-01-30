@@ -27,6 +27,7 @@
 		8484BE4A2B67BDC200A75E7F /* MainVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */; };
 		8484BE4C2B67E5EF00A75E7F /* UIButton + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */; };
 		8484BE4F2B67F1B500A75E7F /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */; };
+		8484BE512B67F9F300A75E7F /* UIStackView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE502B67F9F300A75E7F /* UIStackView + ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		8484BE492B67BDC200A75E7F /* MainVCLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCLayouts.swift; sourceTree = "<group>"; };
 		8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + ext.swift"; sourceTree = "<group>"; };
 		8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
+		8484BE502B67F9F300A75E7F /* UIStackView + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				8484BE342B677F5900A75E7F /* UIViewController + ext.swift */,
 				8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */,
 				8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */,
+				8484BE502B67F9F300A75E7F /* UIStackView + ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				8484BE442B67ABEE00A75E7F /* YearCell.swift in Sources */,
 				8484BE352B677F5900A75E7F /* UIViewController + ext.swift in Sources */,
 				8484BE4C2B67E5EF00A75E7F /* UIButton + ext.swift in Sources */,
+				8484BE512B67F9F300A75E7F /* UIStackView + ext.swift in Sources */,
 				8484BE422B67A97400A75E7F /* TopBannerCell.swift in Sources */,
 				8484BE482B67BAC800A75E7F /* MainVC + ext.swift in Sources */,
 				8484BE3F2B67826500A75E7F /* MainRouter.swift in Sources */,
