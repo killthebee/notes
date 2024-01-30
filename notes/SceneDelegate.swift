@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = assembly.makeMainScreen() as? MainViewController
+        window.rootViewController = assembly.makeNoteScreen() as? NoteViewController
         self.window = window
         window.makeKeyAndVisible()
     }

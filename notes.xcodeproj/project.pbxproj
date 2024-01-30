@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		843F79F42B6900A500563976 /* NoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843F79F32B6900A500563976 /* NoteInteractor.swift */; };
 		8484BE022B66A21800A75E7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE012B66A21800A75E7F /* AppDelegate.swift */; };
 		8484BE042B66A21800A75E7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE032B66A21800A75E7F /* SceneDelegate.swift */; };
 		8484BE062B66A21800A75E7F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE052B66A21800A75E7F /* MainViewController.swift */; };
@@ -28,9 +29,15 @@
 		8484BE4C2B67E5EF00A75E7F /* UIButton + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */; };
 		8484BE4F2B67F1B500A75E7F /* UIImage + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */; };
 		8484BE512B67F9F300A75E7F /* UIStackView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE502B67F9F300A75E7F /* UIStackView + ext.swift */; };
+		8484BE542B68E90B00A75E7F /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE532B68E90B00A75E7F /* NoteViewController.swift */; };
+		8484BE562B68E93000A75E7F /* NoteProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE552B68E93000A75E7F /* NoteProtocols.swift */; };
+		8484BE582B68EA2000A75E7F /* NoteConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */; };
+		8484BE5A2B68EA6F00A75E7F /* NotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE592B68EA6F00A75E7F /* NotePresenter.swift */; };
+		8484BE5C2B68EC5800A75E7F /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		843F79F32B6900A500563976 /* NoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInteractor.swift; sourceTree = "<group>"; };
 		8484BDFE2B66A21800A75E7F /* notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8484BE012B66A21800A75E7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8484BE032B66A21800A75E7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +61,11 @@
 		8484BE4B2B67E5EF00A75E7F /* UIButton + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + ext.swift"; sourceTree = "<group>"; };
 		8484BE4E2B67F1B500A75E7F /* UIImage + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + ext.swift"; sourceTree = "<group>"; };
 		8484BE502B67F9F300A75E7F /* UIStackView + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + ext.swift"; sourceTree = "<group>"; };
+		8484BE532B68E90B00A75E7F /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		8484BE552B68E93000A75E7F /* NoteProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteProtocols.swift; sourceTree = "<group>"; };
+		8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteConfigurator.swift; sourceTree = "<group>"; };
+		8484BE592B68EA6F00A75E7F /* NotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePresenter.swift; sourceTree = "<group>"; };
+		8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +122,7 @@
 		8484BE2F2B677E8C00A75E7F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8484BE522B68E8D700A75E7F /* Note */,
 				8484BE302B677E9200A75E7F /* Main */,
 			);
 			path = Modules;
@@ -119,9 +132,9 @@
 			isa = PBXGroup;
 			children = (
 				8484BE402B67A96400A75E7F /* Cells */,
+				8484BE382B6780CC00A75E7F /* MainConfigurator.swift */,
 				8484BE052B66A21800A75E7F /* MainViewController.swift */,
 				8484BE362B67805500A75E7F /* MainProtocols.swift */,
-				8484BE382B6780CC00A75E7F /* MainConfigurator.swift */,
 				8484BE3A2B67811C00A75E7F /* MainPresenter.swift */,
 				8484BE3C2B67823A00A75E7F /* MainInteractor.swift */,
 				8484BE3E2B67826500A75E7F /* MainRouter.swift */,
@@ -158,6 +171,19 @@
 				8484BE2D2B6778FA00A75E7F /* misc.swift */,
 			);
 			path = utilities;
+			sourceTree = "<group>";
+		};
+		8484BE522B68E8D700A75E7F /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				8484BE532B68E90B00A75E7F /* NoteViewController.swift */,
+				8484BE552B68E93000A75E7F /* NoteProtocols.swift */,
+				8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */,
+				8484BE592B68EA6F00A75E7F /* NotePresenter.swift */,
+				8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */,
+				843F79F32B6900A500563976 /* NoteInteractor.swift */,
+			);
+			path = Note;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,9 +263,12 @@
 				8484BE2E2B6778FA00A75E7F /* misc.swift in Sources */,
 				8484BE392B6780CC00A75E7F /* MainConfigurator.swift in Sources */,
 				8484BE4F2B67F1B500A75E7F /* UIImage + ext.swift in Sources */,
+				8484BE5A2B68EA6F00A75E7F /* NotePresenter.swift in Sources */,
 				8484BE4A2B67BDC200A75E7F /* MainVCLayouts.swift in Sources */,
+				8484BE562B68E93000A75E7F /* NoteProtocols.swift in Sources */,
 				8484BE062B66A21800A75E7F /* MainViewController.swift in Sources */,
 				8484BE442B67ABEE00A75E7F /* YearCell.swift in Sources */,
+				8484BE542B68E90B00A75E7F /* NoteViewController.swift in Sources */,
 				8484BE352B677F5900A75E7F /* UIViewController + ext.swift in Sources */,
 				8484BE4C2B67E5EF00A75E7F /* UIButton + ext.swift in Sources */,
 				8484BE512B67F9F300A75E7F /* UIStackView + ext.swift in Sources */,
@@ -250,9 +279,12 @@
 				8484BE3D2B67823A00A75E7F /* MainInteractor.swift in Sources */,
 				8484BE022B66A21800A75E7F /* AppDelegate.swift in Sources */,
 				8484BE322B677EDE00A75E7F /* AppAssembly.swift in Sources */,
+				8484BE5C2B68EC5800A75E7F /* NoteRouter.swift in Sources */,
 				8484BE462B67AD7100A75E7F /* NoteCell.swift in Sources */,
 				8484BE042B66A21800A75E7F /* SceneDelegate.swift in Sources */,
 				8484BE0C2B66A21800A75E7F /* notes.xcdatamodeld in Sources */,
+				843F79F42B6900A500563976 /* NoteInteractor.swift in Sources */,
+				8484BE582B68EA2000A75E7F /* NoteConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
