@@ -7,6 +7,7 @@ class NoteCell: UICollectionViewCell {
     var cellData : [UIImage?]? {
         didSet {
             guard let cellData = cellData else {return}
+            imagesStackView.removeAllArrangedSubviews()
             for noteImage in cellData {
                 let newImage = noteImage?.resized(toHeight: 40)
                 let imageView = UIImageView(image: newImage)
@@ -37,7 +38,7 @@ class NoteCell: UICollectionViewCell {
     private let headerLable: UILabel = {
         let lable = UILabel()
         lable.text = "Note Header!"
-        lable.textColor = .black
+        lable.textColor = dateColor
         lable.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         
         return lable

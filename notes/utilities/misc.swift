@@ -9,3 +9,7 @@ let cellsBackgroundColor = UIColor(
 let dateColor = UIColor(
     red: 42/255, green: 7/255, blue: 7/255, alpha: 1.0
 )
+
+let buttonColor = UIColor(
+    red: 243/255, green: 147/255, blue: 135/255, alpha: 1.0
+)

@@ -63,7 +63,7 @@ class MainViewController: UIViewController, MainViewProtocol {
             action: #selector(thumbsUpButtonPressed),
             for: .touchUpInside
         )
-        button.backgroundColor = dateColor
+        button.backgroundColor = buttonColor
         
         return button
     }()
