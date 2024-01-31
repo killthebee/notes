@@ -3,6 +3,8 @@ import UIKit
 class NoteViewController: UIViewController, NoteViewProtocol {
     
     var presenter: NotePresenterProtocol?
+    var isBoldOn = false
+    var isItalicOn = false
     lazy var imagePicker = ImagePicker(
         presentationController: self,
         delegate: self
@@ -27,6 +29,28 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         view.endEditing(true)
     }
     
+    @objc func boldChangeTapped(_ sender: UIButton) {
+        isBoldOn = isBoldOn ? false : true
+        noteInputTextField.typingAttributes?[
+            NSAttributedString.Key.font
+        ] = isBoldOn ? UIFont.systemFont(
+            ofSize: 15,
+            weight: .bold
+        ) : UIFont.systemFont(ofSize: 15, weight: .regular)
+    }
+    
+    @objc func italicChangeTapped(_ sender: UIButton) {
+        isItalicOn = isItalicOn ? false : true
+        noteInputTextField.typingAttributes?[
+            NSAttributedString.Key.font
+        ] = isItalicOn ? UIFont.italicSystemFont(
+            ofSize: 15
+        ) : UIFont.systemFont(ofSize: 15, weight: .regular )
+//        print(noteInputTextField.attributedText)
+//        print(noteInputTextField.selectedTextRange)
+//        print("ebashim!!!")
+    }
+    
     let saveButton = NoteControlButton("SAVE")
     let deleteButton = NoteControlButton("DELETE")
     let exitButton = NoteControlButton("<")
@@ -42,6 +66,8 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         let view = UIView()
         view.backgroundColor = buttonColor
         view.layer.cornerRadius = 20
+        view.layer.borderWidth = 2
+        view.layer.borderColor = mainBackgroundColor.cgColor
         
         return view
     }()
@@ -74,10 +100,12 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         return field
     }()
     
-    private let noteInputTextField: UITextField = {
-        let field = UITextField()
+    private let noteInputTextField: InputTextField = {
+        let field = InputTextField()
         field.backgroundColor = buttonColor
         field.layer.cornerRadius = 20
+        field.contentVerticalAlignment = .top
+        field.font = UIFont.systemFont(ofSize: 15, weight: .regular)
 //        field.tag = 0
         
         return field
@@ -134,18 +162,50 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         return stack
     }()
     
+    private lazy var boldButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "bold60"), for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(boldChangeTapped),
+            for: .touchDown
+        )
+        
+        return button
+    }()
+    
+    private lazy var italicButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "italic60"), for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(italicChangeTapped),
+            for: .touchDown
+        )
+        
+        return button
+    }()
+    
     private func configure() {
         view.backgroundColor = mainBackgroundColor
         addSubviews()
         disableAutoresizing()
         setUpConstrains()
         addToolbars()
+        noteInputTextField.delegate = self
         // set date field to today for new entries
         dateDoneButtonTapped()
+        addKeyboardNotifications()
     }
     
     private func addToolbars() {
-        let doneButton = UIBarButtonItem(
+        let doneDateButton = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: self,
+            action: #selector(dateDoneButtonTapped)
+        )
+        let doneTextButton = UIBarButtonItem(
             title: "Done",
             style: .plain,
             target: self,
@@ -164,13 +224,39 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         )
 
         dateTextField.inputAccessoryView = makeToolbar(
-            barItems: [cancelButton, flexSpace, doneButton]
+            barItems: [cancelButton, flexSpace, doneDateButton]
+        )
+        noteInputTextField.inputAccessoryView = makeToolbar(
+            barItems: [flexSpace, doneTextButton]
         )
     }
     
+    private func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(sender:)),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(sender:)),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+    }
+    
+    @objc func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -250
+        editorButtonsBottomConstraint?.constant = -150
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification) {
+         self.view.frame.origin.y = 0
+        editorButtonsBottomConstraint?.constant = -16
+    }
+    
+    
     private func addSubviews() {
-        [topButtonsContainerView, editorButtonsContainerView,
-         dateTextField, noteAreaContainer
+        [topButtonsContainerView,dateTextField, noteAreaContainer, editorButtonsContainerView
         ].forEach{view.addSubview($0)}
         [saveButton, deleteButton, exitButton
         ].forEach{topButtonsContainerView.addSubview($0)}
@@ -179,6 +265,8 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         [imageStackCoverView, addImageButton,
         ].forEach{imagesContainerView.addSubview($0)}
         imageStackCoverView.addSubview(imagesStackView)
+        [boldButton, italicButton
+        ].forEach{editorButtonsContainerView.addSubview($0)}
     }
     
     // MARK: Layout -
@@ -186,12 +274,23 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         [topButtonsContainerView, editorButtonsContainerView, saveButton,
          deleteButton, exitButton, dateTextField, noteAreaContainer,
          imageLable, noteTextLable, imagesStackView, imagesContainerView,
-         addImageButton, noteInputTextField, imageStackCoverView
+         addImageButton, noteInputTextField, imageStackCoverView, boldButton,
+         italicButton,
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
+    private var editorButtonsBottomConstraint: NSLayoutConstraint?
+    
     func setUpConstrains() {
         let edgeSpacing: CGFloat = 16
+        editorButtonsBottomConstraint = editorButtonsContainerView.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+            constant: -1 * edgeSpacing
+        )
+        guard
+            let editorButtonsBottomConstraint = editorButtonsBottomConstraint
+        else
+            { return }
         
         let constraints: [NSLayoutConstraint] = [
             topButtonsContainerView.topAnchor.constraint(
@@ -248,10 +347,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
                 equalToConstant: 40
             ),
             
-            editorButtonsContainerView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: -1 * edgeSpacing
-            ),
+            editorButtonsBottomConstraint,
             editorButtonsContainerView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: edgeSpacing
@@ -291,8 +387,8 @@ class NoteViewController: UIViewController, NoteViewProtocol {
                 constant: -1 * edgeSpacing
             ),
             noteAreaContainer.bottomAnchor.constraint(
-                equalTo: editorButtonsContainerView.topAnchor,
-                constant: -1 * edgeSpacing
+                equalTo: view.bottomAnchor,
+                constant: -1 * (4 * edgeSpacing + 40)
             ),
             
             imageLable.topAnchor.constraint(
@@ -385,6 +481,26 @@ class NoteViewController: UIViewController, NoteViewProtocol {
                 equalTo: noteAreaContainer.bottomAnchor,
                 constant: -1 * edgeSpacing
             ),
+            
+            boldButton.centerYAnchor.constraint(
+                equalTo: editorButtonsContainerView.centerYAnchor
+            ),
+            boldButton.leadingAnchor.constraint(
+                equalTo: editorButtonsContainerView.leadingAnchor,
+                constant: edgeSpacing
+            ),
+            boldButton.widthAnchor.constraint(equalToConstant: 30),
+            boldButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            italicButton.centerYAnchor.constraint(
+                equalTo: editorButtonsContainerView.centerYAnchor
+            ),
+            italicButton.leadingAnchor.constraint(
+                equalTo: boldButton.trailingAnchor,
+                constant: edgeSpacing
+            ),
+            italicButton.widthAnchor.constraint(equalToConstant: 30),
+            italicButton.heightAnchor.constraint(equalToConstant: 30),
         ]
         
         NSLayoutConstraint.activate(constraints)

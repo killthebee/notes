@@ -35,6 +35,7 @@
 		8484BE582B68EA2000A75E7F /* NoteConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */; };
 		8484BE5A2B68EA6F00A75E7F /* NotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE592B68EA6F00A75E7F /* NotePresenter.swift */; };
 		8484BE5C2B68EC5800A75E7F /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */; };
+		84ABE7C62B6AA374007A9C56 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABE7C52B6AA374007A9C56 /* TextInputField.swift */; };
 		84BAEC4C2B6A906E00B1D6E3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */; };
 		84BAEC4E2B6A91E900B1D6E3 /* NoteVC + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteConfigurator.swift; sourceTree = "<group>"; };
 		8484BE592B68EA6F00A75E7F /* NotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePresenter.swift; sourceTree = "<group>"; };
 		8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRouter.swift; sourceTree = "<group>"; };
+		84ABE7C52B6AA374007A9C56 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
 		84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteVC + ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 			children = (
 				846395122B69096C00B0B3C5 /* NoteButton.swift */,
 				84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */,
+				84ABE7C52B6AA374007A9C56 /* TextInputField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				8484BE3B2B67811C00A75E7F /* MainPresenter.swift in Sources */,
 				8484BE3D2B67823A00A75E7F /* MainInteractor.swift in Sources */,
 				8484BE022B66A21800A75E7F /* AppDelegate.swift in Sources */,
+				84ABE7C62B6AA374007A9C56 /* TextInputField.swift in Sources */,
 				8484BE322B677EDE00A75E7F /* AppAssembly.swift in Sources */,
 				8484BE5C2B68EC5800A75E7F /* NoteRouter.swift in Sources */,
 				8484BE462B67AD7100A75E7F /* NoteCell.swift in Sources */,
