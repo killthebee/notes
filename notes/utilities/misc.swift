@@ -13,3 +13,13 @@ let dateColor = UIColor(
 let buttonColor = UIColor(
     red: 243/255, green: 147/255, blue: 135/255, alpha: 1.0
 )
+
+func makeToolbar(barItems: [UIBarButtonItem]) -> UIToolbar {
+    let toolbar = UIToolbar()
+    toolbar.setItems(barItems, animated: true)
+    toolbar.sizeToFit()
+    
+    return toolbar
+}
+
+// split file)
