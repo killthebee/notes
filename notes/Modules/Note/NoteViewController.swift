@@ -3,6 +3,12 @@ import UIKit
 class NoteViewController: UIViewController, NoteViewProtocol {
     
     var presenter: NotePresenterProtocol?
+    lazy var imagePicker = ImagePicker(
+        presentationController: self,
+        delegate: self
+    )
+    
+    var addedImages: [UIImage] = []
     
     @objc func dateDoneButtonTapped() {
         let dateFormatter = DateFormatter()
@@ -11,6 +17,10 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         
         self.dateTextField.text = dateFormatter.string(from: datePicker.date)
         view.endEditing(true)
+    }
+    
+    @objc func handleAddImageClicked(_ sender: UIButton) {
+        self.imagePicker.present(from: sender)
     }
     
     @objc func dateCancelButtonTapped() {
@@ -93,22 +103,33 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     
     private let imagesContainerView = UIView()
     
-    private let addImageButton: UIButton = {
+    private lazy var addImageButton: UIButton = {
         let addImageButton = UIButton()
         addImageButton.setImage(
             UIImage(named: "plusIcon60"),
             for: .normal
         )
+        addImageButton.addTarget(
+            self,
+            action: #selector(handleAddImageClicked),
+            for: .touchDown
+        )
         
         return addImageButton
     }()
     
-    private let imagesStackView: UIStackView = {
+    private let imageStackCoverView: UIView = {
+        let view = UIView()
+        view.backgroundColor = buttonColor
+        view.layer.cornerRadius = 10
+        
+        return view
+    }()
+    
+    let imagesStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = 10
-        stack.backgroundColor = buttonColor
-        stack.layer.cornerRadius = 10
         
         return stack
     }()
@@ -155,8 +176,9 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         ].forEach{topButtonsContainerView.addSubview($0)}
         [imageLable, noteTextLable, imagesContainerView, noteInputTextField
         ].forEach{noteAreaContainer.addSubview($0)}
-        [imagesStackView, addImageButton, 
+        [imageStackCoverView, addImageButton,
         ].forEach{imagesContainerView.addSubview($0)}
+        imageStackCoverView.addSubview(imagesStackView)
     }
     
     // MARK: Layout -
@@ -164,7 +186,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         [topButtonsContainerView, editorButtonsContainerView, saveButton,
          deleteButton, exitButton, dateTextField, noteAreaContainer,
          imageLable, noteTextLable, imagesStackView, imagesContainerView,
-         addImageButton, noteInputTextField
+         addImageButton, noteInputTextField, imageStackCoverView
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
@@ -310,18 +332,29 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             ),
             addImageButton.widthAnchor.constraint(equalToConstant: 60),
             
-            imagesStackView.topAnchor.constraint(
+            imageStackCoverView.topAnchor.constraint(
                 equalTo: imagesContainerView.topAnchor
             ),
-            imagesStackView.leadingAnchor.constraint(
+            imageStackCoverView.leadingAnchor.constraint(
                 equalTo: imagesContainerView.leadingAnchor
             ),
-            imagesStackView.trailingAnchor.constraint(
+            imageStackCoverView.trailingAnchor.constraint(
                 equalTo: addImageButton.leadingAnchor,
                 constant: -1 * edgeSpacing
             ),
-            imagesStackView.bottomAnchor.constraint(
+            imageStackCoverView.bottomAnchor.constraint(
                 equalTo: imagesContainerView.bottomAnchor
+            ),
+            
+            imagesStackView.centerYAnchor.constraint(
+                equalTo: imageStackCoverView.centerYAnchor
+            ),
+            imagesStackView.leadingAnchor.constraint(
+                equalTo: imageStackCoverView.leadingAnchor,
+                constant: edgeSpacing
+            ),
+            imagesStackView.heightAnchor.constraint(
+                equalToConstant: 60
             ),
             
             noteTextLable.topAnchor.constraint(
