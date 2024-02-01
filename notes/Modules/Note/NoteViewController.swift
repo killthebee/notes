@@ -245,6 +245,40 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         // set date field to today for new entries
         dateDoneButtonTapped()
         addKeyboardNotifications()
+        addTargetActionMethods()
+    }
+    
+    private func addTargetActionMethods() {
+        saveButton.addTarget(
+            self,
+            action: #selector(saveNote),
+            for: .touchDown
+        )
+    }
+    
+    
+    func checkCoreData() {
+//        let manager = DBManager.shared
+        saveButton.addTarget(
+            self,
+            action: #selector(saveNote),
+            for: .touchDown
+        )
+    }
+    
+    @objc func saveNote() {
+        Task {
+            let dbService = DBManager.shared
+            let newRecord = await dbService.createNote(
+                header: headerTextField.text,
+                date: datePicker.date,
+                text: noteInputTextField.attributedText,
+                images: addedImages.map{$0.jpegData(compressionQuality: 1)}
+            )
+            if newRecord == nil {
+                print("make bottom sheet pop up with retry buttom...")
+            }
+        }
     }
     
     private func addToolbars() {

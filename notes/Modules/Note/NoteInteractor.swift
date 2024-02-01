@@ -3,6 +3,7 @@ import Foundation
 class NoteInteractor: NoteInteractorProtocol {
     
     weak var presenter: NotePresenter?
+//    let dbService = DBManager.shared
     
     required init(presenter: NotePresenter) {
         self.presenter = presenter
