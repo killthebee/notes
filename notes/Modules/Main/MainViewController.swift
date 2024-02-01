@@ -10,6 +10,13 @@ class MainViewController: UIViewController, MainViewProtocol {
 //        UIImage(named: "banner1")
     ]
     
+    var notes: [Note] = []
+    
+    func setNotes(_ notesFromBD: [Note]) {
+        notes = notesFromBD
+        collectionView.reloadData()
+    }
+    
     @objc func thumbsUpButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
     }
@@ -79,6 +86,11 @@ class MainViewController: UIViewController, MainViewProtocol {
         disableAutoresizing()
         setUpConstrains()
         configureCompositionalLayout()
+        downloadNotes()
+    }
+    
+    private func downloadNotes() {
+        presenter?.downloadNotes()
     }
     
     private func addSubviews() {

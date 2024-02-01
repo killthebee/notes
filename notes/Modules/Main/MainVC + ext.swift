@@ -11,8 +11,7 @@ extension MainViewController:
     ) -> Int {
         switch section {
         case 1:
-            return 30
-            // return notes.count or smthng
+            return notes.count == 0 ? 0 : notes.count
         default:
             return 1
         }
@@ -45,7 +44,7 @@ extension MainViewController:
         else {
             fatalError("Unable deque cell...")
         }
-        cell.cellData = images
+        cell.cellData = notes[indexPath.row]
         
         return cell
     }

@@ -7,4 +7,13 @@ class MainPresenter: MainPresenterProtocol {
     required init(view: MainViewProtocol) {
         self.view = view
     }
+    
+    func downloadNotes() {
+        interactor?.downloadNotes()
+    }
+    
+    @MainActor
+    func setNotes(_ notes: [Note]) async {
+        view?.setNotes(notes)
+    }
 }

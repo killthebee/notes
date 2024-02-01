@@ -62,7 +62,7 @@ class DBManager {
         return nil
     }
     
-    func fetchNotes(_ id: ObjectIdentifier) async -> [Note]? {
+    func fetchNotes() async -> [Note]? {
         let context = persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<Note>(entityName: "Note")

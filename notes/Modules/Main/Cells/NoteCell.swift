@@ -4,14 +4,35 @@ class NoteCell: UICollectionViewCell {
     
     static let cellIdentifier = "NotCellIdentifier"
     
-    var cellData : [UIImage?]? {
+    var cellData: Note? {
         didSet {
-            guard let cellData = cellData else {return}
+            guard let note = cellData else { return }
+            
             imagesStackView.removeAllArrangedSubviews()
-            for noteImage in cellData {
-                let newImage = noteImage?.resized(toHeight: 40)
+            for noteImageRelatedObject in note.images ?? [] {
+                guard
+                    let noteImage = noteImageRelatedObject as? NoteImage,
+                    let imageData = noteImage.imageData
+                else
+                    { return }
+                let newImage = UIImage(data: imageData, scale:1.0)?.resized(toHeight: 40)
                 let imageView = UIImageView(image: newImage)
                 imagesStackView.addArrangedSubview(imageView)
+            }
+            
+            if let dateData = note.date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .none
+                dateLable.text = dateFormatter.string(from: dateData)
+            }
+            
+            if let header = note.header {
+                headerLable.text = header
+            }
+            
+            if let text = note.text {
+                noteTextField.attributedText = text
             }
         }
     }
@@ -20,7 +41,7 @@ class NoteCell: UICollectionViewCell {
         let lable = UILabel()
         lable.textColor = .white
         lable.font = UIFont.systemFont(ofSize: 12)
-        let attributedDate = NSMutableAttributedString(string: "23 january")
+        let attributedDate = NSMutableAttributedString(string: "31 feb 2025")
         let dateRange = NSMakeRange(0, 2)
         attributedDate.setAttributes([
             NSAttributedString.Key.font: UIFont.systemFont(
@@ -37,16 +58,16 @@ class NoteCell: UICollectionViewCell {
     
     private let headerLable: UILabel = {
         let lable = UILabel()
-        lable.text = "Note Header!"
+        lable.text = "Header's empty :("
         lable.textColor = dateColor
         lable.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         
         return lable
     }()
     
-    private let noteTextLable: UILabel = {
-        let lable = UILabel()
-        lable.text = "Here is some of my notes fsafasasfsdgdsggwetedsfsdvdscsdffqwfasfdasdfwa"
+    private let noteTextField: UITextField = {
+        let lable = UITextField()
+        lable.text = "No text here:("
         lable.textColor = .white
         
         return lable
@@ -82,12 +103,12 @@ class NoteCell: UICollectionViewCell {
     }
     
     private func disableAutoresizing() {
-        [dateLable, headerLable, noteTextLable, imagesStackView
+        [dateLable, headerLable, noteTextField, imagesStackView
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
     private func addSubviews() {
-        [dateLable, headerLable, noteTextLable, imagesStackView
+        [dateLable, headerLable, noteTextField, imagesStackView
         ].forEach{addSubview($0)}
     }
     
@@ -111,17 +132,17 @@ class NoteCell: UICollectionViewCell {
             headerLable.trailingAnchor.constraint(equalTo: trailingAnchor),
             headerLable.heightAnchor.constraint(equalToConstant: 20),
             
-            noteTextLable.topAnchor.constraint(
+            noteTextField.topAnchor.constraint(
                 equalTo: headerLable.bottomAnchor
             ),
-            noteTextLable.leadingAnchor.constraint(
+            noteTextField.leadingAnchor.constraint(
                 equalTo: headerLable.leadingAnchor
             ),
-            noteTextLable.trailingAnchor.constraint(equalTo: trailingAnchor),
-            noteTextLable.heightAnchor.constraint(equalToConstant: 20),
+            noteTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
+            noteTextField.heightAnchor.constraint(equalToConstant: 20),
             
             imagesStackView.topAnchor.constraint(
-                equalTo: noteTextLable.bottomAnchor,
+                equalTo: noteTextField.bottomAnchor,
                 constant: 5
             ),
             imagesStackView.heightAnchor.constraint(equalToConstant: 40),

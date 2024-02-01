@@ -1,4 +1,4 @@
-class MainConfigurator: MainViewProtocol {
+class MainConfigurator: MainConfiguratorProtocol {
     
     private let assembly: AppAssembly
     
