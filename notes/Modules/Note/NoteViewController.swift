@@ -3,13 +3,14 @@ import UIKit
 class NoteViewController: UIViewController, NoteViewProtocol {
     
     var presenter: NotePresenterProtocol?
-    lazy var imagePicker = ImagePicker(
+    private lazy var imagePicker = ImagePicker(
         presentationController: self,
         delegate: self
     )
     
     var isBoldOn = false
     var isItalicOn = false
+    var isTextInput = false
     let possibleFonts: [String: UIFont] = [
         "regular": UIFont.systemFont(ofSize: 15, weight: .regular),
         "bold": UIFont.systemFont(ofSize: 15, weight: .bold),
@@ -34,7 +35,6 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     @objc func dateCancelButtonTapped() {
         view.endEditing(true)
     }
-    
     
     func setNewText(
         _ text: NSMutableAttributedString,
@@ -129,10 +129,20 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         let field = UITextField()
         field.backgroundColor = cellsBackgroundColor
         field.layer.cornerRadius = 20
-//        field.tag = 1
         field.inputView = datePicker
         field.textAlignment = .center
         field.textColor = dateColor
+        
+        return field
+    }()
+    
+    private lazy var headerTextField: UITextField = {
+        let field = UITextField()
+        field.backgroundColor = cellsBackgroundColor
+        field.layer.cornerRadius = 20
+        field.textAlignment = .center
+        field.textColor = dateColor
+        field.placeholder = "header"
         
         return field
     }()
@@ -143,7 +153,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         field.layer.cornerRadius = 20
         field.contentVerticalAlignment = .top
         field.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-//        field.tag = 0
+        field.tag = 1337
         
         return field
     }()
@@ -250,6 +260,12 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             target: self,
             action: #selector(dateDoneButtonTapped)
         )
+        let doneHeaderButton = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: self,
+            action: #selector(dateDoneButtonTapped)
+        )
         let flexSpace = UIBarButtonItem(
             barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace,
             target: nil,
@@ -268,6 +284,9 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         noteInputTextField.inputAccessoryView = makeToolbar(
             barItems: [flexSpace, doneTextButton]
         )
+        headerTextField.inputAccessoryView = makeToolbar(
+            barItems: [flexSpace, doneHeaderButton]
+        )
     }
     
     private func addKeyboardNotifications() {
@@ -284,18 +303,23 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {
-        self.view.frame.origin.y = -250
-        editorButtonsBottomConstraint?.constant = -150
+        if isTextInput {
+            self.view.frame.origin.y = -250
+            editorButtonsBottomConstraint?.constant = -150
+        }
     }
     
     @objc func keyboardWillHide(sender: NSNotification) {
-         self.view.frame.origin.y = 0
-        editorButtonsBottomConstraint?.constant = -16
+        if isTextInput {
+            self.view.frame.origin.y = 0
+            editorButtonsBottomConstraint?.constant = -16
+        }
     }
     
     
     private func addSubviews() {
-        [topButtonsContainerView,dateTextField, noteAreaContainer, editorButtonsContainerView
+        [topButtonsContainerView,dateTextField, noteAreaContainer,
+         editorButtonsContainerView, headerTextField
         ].forEach{view.addSubview($0)}
         [saveButton, deleteButton, exitButton
         ].forEach{topButtonsContainerView.addSubview($0)}
@@ -314,7 +338,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
          deleteButton, exitButton, dateTextField, noteAreaContainer,
          imageLable, noteTextLable, imagesStackView, imagesContainerView,
          addImageButton, noteInputTextField, imageStackCoverView, boldButton,
-         italicButton,
+         italicButton, headerTextField
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
@@ -407,9 +431,23 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             ),
             dateTextField.widthAnchor.constraint(
                 equalTo: view.widthAnchor,
-                multiplier: 0.5
+                multiplier: 0.4
             ),
             dateTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            headerTextField.topAnchor.constraint(
+                equalTo: topButtonsContainerView.bottomAnchor,
+                constant: 2 * edgeSpacing
+            ),
+            headerTextField.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -1 * edgeSpacing
+            ),
+            headerTextField.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 0.4
+            ),
+            headerTextField.heightAnchor.constraint(equalToConstant: 40),
             
             noteAreaContainer.topAnchor.constraint(
                 equalTo: dateTextField.bottomAnchor,

@@ -1,6 +1,7 @@
 import UIKit
 
 extension NoteViewController: ImagePickerDelegate {
+    
     func didSelect(image: UIImage?) {
         guard let image = image else {
             return
@@ -20,7 +21,15 @@ extension NoteViewController: ImagePickerDelegate {
 }
 
 extension NoteViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
+    
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        if textField.tag == 1337 {
+            isTextInput = true
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField){
+        isTextInput = false
     }
 }
