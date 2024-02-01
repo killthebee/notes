@@ -3,12 +3,18 @@ import UIKit
 class NoteViewController: UIViewController, NoteViewProtocol {
     
     var presenter: NotePresenterProtocol?
-    var isBoldOn = false
-    var isItalicOn = false
     lazy var imagePicker = ImagePicker(
         presentationController: self,
         delegate: self
     )
+    
+    var isBoldOn = false
+    var isItalicOn = false
+    let possibleFonts: [String: UIFont] = [
+        "regular": UIFont.systemFont(ofSize: 15, weight: .regular),
+        "bold": UIFont.systemFont(ofSize: 15, weight: .bold),
+        "italic": UIFont.italicSystemFont(ofSize: 15)
+    ]
     
     var addedImages: [UIImage] = []
     
@@ -29,26 +35,57 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         view.endEditing(true)
     }
     
+    
+    func setNewText(
+        _ text: NSMutableAttributedString,
+        range: NSRange,
+        fontName: String
+    ) {
+        text.addAttribute(
+            NSAttributedString.Key.font,
+            value: possibleFonts[fontName]!,
+            range: range
+        )
+        noteInputTextField.attributedText = text
+    }
+    
     @objc func boldChangeTapped(_ sender: UIButton) {
         isBoldOn = isBoldOn ? false : true
+        sender.backgroundColor = isBoldOn ? .blue : .clear
+        let fontName = presenter?.interactor?.getFontForBoldSwitch(
+            isBoldOn
+        ) ?? "regular"
+        
+        let targetFont = possibleFonts[fontName]
         noteInputTextField.typingAttributes?[
             NSAttributedString.Key.font
-        ] = isBoldOn ? UIFont.systemFont(
-            ofSize: 15,
-            weight: .bold
-        ) : UIFont.systemFont(ofSize: 15, weight: .regular)
+        ] = targetFont
+        
+        presenter?.interactor?.makeNewAtrText(
+            noteInputTextField.attributedText,
+            range: noteInputTextField.selectedRange,
+            fontName: fontName
+        )
     }
     
     @objc func italicChangeTapped(_ sender: UIButton) {
         isItalicOn = isItalicOn ? false : true
+        sender.backgroundColor = isItalicOn ? .blue : .clear
+        
+        let fontName = presenter?.interactor?.getFontForItalicSwitch(
+            isItalicOn
+        ) ?? "regular"
+        
+        let targetFont = possibleFonts[fontName]
         noteInputTextField.typingAttributes?[
             NSAttributedString.Key.font
-        ] = isItalicOn ? UIFont.italicSystemFont(
-            ofSize: 15
-        ) : UIFont.systemFont(ofSize: 15, weight: .regular )
-//        print(noteInputTextField.attributedText)
-//        print(noteInputTextField.selectedTextRange)
-//        print("ebashim!!!")
+        ] = targetFont
+        
+        presenter?.interactor?.makeNewAtrText(
+            noteInputTextField.attributedText,
+            range: noteInputTextField.selectedRange,
+            fontName: fontName
+        )
     }
     
     let saveButton = NoteControlButton("SAVE")
@@ -170,6 +207,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             action: #selector(boldChangeTapped),
             for: .touchDown
         )
+        button.layer.cornerRadius = 15
         
         return button
     }()
@@ -182,6 +220,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             action: #selector(italicChangeTapped),
             for: .touchDown
         )
+        button.layer.cornerRadius = 15
         
         return button
     }()
@@ -348,13 +387,11 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             ),
             
             editorButtonsBottomConstraint,
-            editorButtonsContainerView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: edgeSpacing
+            editorButtonsContainerView.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
             ),
-            editorButtonsContainerView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -1 * edgeSpacing
+            editorButtonsContainerView.widthAnchor.constraint(
+                equalToConstant: 150
             ),
             editorButtonsContainerView.heightAnchor.constraint(
                 equalToConstant: 40
