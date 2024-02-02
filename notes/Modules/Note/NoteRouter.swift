@@ -8,5 +8,7 @@ class NoteRouter: NoteRouterProtocol {
         self.view = view
     }
     
-    // dismiss vc 
+    func dismissRequested() {
+        view?.dismiss()
+    }
 }

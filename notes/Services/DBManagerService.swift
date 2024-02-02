@@ -77,4 +77,35 @@ class DBManager {
         
         return nil
     }
+    
+    func updateNote(
+        id: NSManagedObjectID,
+        header: String?,
+        date: Date,
+        text: NSAttributedString?,
+        images: [Data?]
+    ) {
+        let context = persistentContainer.viewContext
+        do {
+            guard
+                let currentNote = context.object(with: id) as? Note
+            else
+            { return }
+            currentNote.date = date
+            currentNote.header = header ?? ""
+            currentNote.text = text ?? NSAttributedString(string: "")
+            
+            guard let existingImages = currentNote.images else { return }
+            currentNote.removeFromImages(existingImages)
+            for imageData in images {
+                let newImage = NoteImage(context: context)
+                newImage.imageData = imageData
+                currentNote.addToImages(newImage)
+            }
+            
+            try context.save()
+        } catch let error {
+            print("Failed to update: \(error)")
+        }
+   }
 }

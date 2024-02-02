@@ -11,4 +11,8 @@ class NotePresenter: NotePresenterProtocol {
     func getNoteData(_ note: Note) {
         interactor?.getNoteData(note)
     }
+    
+    func dismissRequested() {
+        router?.dismissRequested()
+    }
 }

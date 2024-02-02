@@ -25,6 +25,7 @@ protocol NotePresenterProtocol: AnyObject {
     var interactor: NoteInteractorProtocol? { get set }
     var view: NoteViewProtocol? { get set }
     func getNoteData(_ note: Note)
+    func dismissRequested()
 }
 
 protocol NoteInteractorProtocol: AnyObject {
@@ -39,5 +40,5 @@ protocol NoteInteractorProtocol: AnyObject {
 }
 
 protocol NoteRouterProtocol: AnyObject {
-    
+    func dismissRequested()
 }

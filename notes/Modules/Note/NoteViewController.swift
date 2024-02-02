@@ -126,11 +126,24 @@ class NoteViewController: UIViewController, NoteViewProtocol {
                 }
                 
                 noteObj = newRecord
-                mainVCDelegate?.downloadNotes()
-                // mb fall back to main vc, mb redownload in router?
-                return
+                
+            } else {
+                dbService.updateNote(
+                    id: noteObj!.objectID,
+                    header: headerTextField.text,
+                    date: datePicker.date,
+                    text: noteInputTextField.attributedText,
+                    images: addedImages.map{$0.jpegData(compressionQuality: 1)}
+                )
             }
+            
+            mainVCDelegate?.downloadNotes()
+            presenter?.dismissRequested()
         }
+    }
+    
+    @objc func dismissView() {
+        presenter?.dismissRequested()
     }
     
     let saveButton = NoteControlButton("SAVE")
@@ -300,6 +313,11 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         saveButton.addTarget(
             self,
             action: #selector(saveNote),
+            for: .touchDown
+        )
+        exitButton.addTarget(
+            self,
+            action: #selector(dismissView),
             for: .touchDown
         )
     }
