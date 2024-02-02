@@ -5,6 +5,13 @@ class DBManager {
     
     static let shared = DBManager()
     
+    @objc(NSAttributedStringTransformer)
+    class NSAttributedStringTransformer: NSSecureUnarchiveFromDataTransformer {
+        override class var allowedTopLevelClasses: [AnyClass] {
+            return super.allowedTopLevelClasses + [NSAttributedString.self]
+        }
+    }
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "notes")
         container.loadPersistentStores(
