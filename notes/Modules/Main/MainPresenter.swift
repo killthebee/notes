@@ -16,4 +16,8 @@ class MainPresenter: MainPresenterProtocol {
     func setNotes(_ notes: [Note]) async {
         view?.setNotes(notes)
     }
+    
+    func presentNoteScreen(_ note: Note?) {
+        router?.presentNoteScreen(note)
+    }
 }

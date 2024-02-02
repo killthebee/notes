@@ -4,21 +4,17 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     var presenter: MainPresenterProtocol?
     
-    let images: [UIImage?] = [
-        UIImage(named: "banner1"),
-        UIImage(named: "banner1"),
-//        UIImage(named: "banner1")
-    ]
-    
     var notes: [Note] = []
     
     func setNotes(_ notesFromBD: [Note]) {
+        notes = []
         notes = notesFromBD
         collectionView.reloadData()
     }
     
     @objc func thumbsUpButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
+        presenter?.presentNoteScreen(nil)
     }
     
     lazy var collectionView : UICollectionView = {
@@ -89,7 +85,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         downloadNotes()
     }
     
-    private func downloadNotes() {
+    func downloadNotes() {
         presenter?.downloadNotes()
     }
     

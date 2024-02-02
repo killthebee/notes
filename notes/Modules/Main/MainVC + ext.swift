@@ -67,4 +67,12 @@ extension MainViewController:
         
         return supplementaryView
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            presenter?.presentNoteScreen(
+                notes[indexPath.row]
+            )
+        }
+    }
 }

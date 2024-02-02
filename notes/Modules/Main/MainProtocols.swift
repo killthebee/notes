@@ -1,4 +1,5 @@
 protocol MainViewProtocol: AnyObject {
+    func downloadNotes()
     func setNotes(_ notesFromBD: [Note])
 }
 
@@ -9,6 +10,7 @@ protocol MainConfiguratorProtocol: AnyObject {
 protocol MainPresenterProtocol: AnyObject {
     func downloadNotes()
     func setNotes(_ notes: [Note]) async
+    func presentNoteScreen(_ note: Note?)
 }
 
 protocol MainInteractorProtocol: AnyObject {
@@ -16,5 +18,5 @@ protocol MainInteractorProtocol: AnyObject {
 }
 
 protocol MainRouterProtocol: AnyObject {
-    
+    func presentNoteScreen(_ note: Note?)
 }

@@ -8,5 +8,17 @@ class MainRouter: MainRouterProtocol {
         self.view = view
     }
     
-    // present Note screen func
+    func presentNoteScreen(_ note: Note?) {
+        guard
+            let noteVC = assembly.makeNoteScreen() as? NoteViewController,
+            let mainVC = view as? MainViewProtocol
+        else {
+            return
+        }
+        
+        noteVC.mainVCDelegate = mainVC
+        noteVC.modalPresentationStyle = .fullScreen
+        noteVC.noteObj = note
+        view?.present(noteVC)
+    }
 }

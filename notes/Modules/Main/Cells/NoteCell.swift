@@ -66,11 +66,12 @@ class NoteCell: UICollectionViewCell {
     }()
     
     private let noteTextField: UITextField = {
-        let lable = UITextField()
-        lable.text = "No text here:("
-        lable.textColor = .white
+        let field = UITextField()
+        field.text = "No text here:("
+        field.textColor = .white
+        field.isUserInteractionEnabled = false
         
-        return lable
+        return field
     }()
     
     private let imagesStackView: UIStackView = {

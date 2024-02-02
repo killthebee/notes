@@ -3,6 +3,7 @@ import UIKit
 class NoteViewController: UIViewController, NoteViewProtocol {
     
     var presenter: NotePresenterProtocol?
+    var mainVCDelegate: MainViewProtocol?
     private lazy var imagePicker = ImagePicker(
         presentationController: self,
         delegate: self
@@ -16,8 +17,42 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         "bold": UIFont.systemFont(ofSize: 15, weight: .bold),
         "italic": UIFont.italicSystemFont(ofSize: 15)
     ]
+    var noteObj: Note? = nil
     
     var addedImages: [UIImage] = []
+    
+    private func setupFromNote() {
+        guard let note = noteObj else { return }
+        
+        if let dateData = note.date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            
+            self.dateTextField.text = dateFormatter.string(from: dateData)
+        }
+        
+        if let header = note.header {
+            headerTextField.text = header
+        }
+        
+        imagesStackView.removeAllArrangedSubviews()
+        for noteImageRelatedObject in note.images ?? [] {
+            guard
+                let noteImage = noteImageRelatedObject as? NoteImage,
+                let imageData = noteImage.imageData
+            else
+                { return }
+            let newImage = UIImage(data: imageData, scale:1.0)
+            let imageView = UIImageView(image: newImage)
+            imagesStackView.addArrangedSubview(imageView)
+//            addedImages.append(newImage!)
+        }
+        
+        if let text = note.text {
+            noteInputTextField.attributedText = text
+        }
+    }
     
     @objc func dateDoneButtonTapped() {
         let dateFormatter = DateFormatter()
@@ -86,6 +121,30 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             range: noteInputTextField.selectedRange,
             fontName: fontName
         )
+    }
+    
+    @objc func saveNote() {
+        Task {
+            let dbService = DBManager.shared
+            if noteObj == nil {
+                let newRecord = await dbService.createNote(
+                    header: headerTextField.text,
+                    date: datePicker.date,
+                    text: noteInputTextField.attributedText,
+                    images: addedImages.map{$0.jpegData(compressionQuality: 1)}
+                )
+                
+                if newRecord == nil {
+                    print("make bottom sheet pop up with retry buttom...")
+                    return
+                }
+                
+                noteObj = newRecord
+                mainVCDelegate?.downloadNotes()
+                // mb fall back to main vc, mb redownload in router?
+                return
+            }
+        }
     }
     
     let saveButton = NoteControlButton("SAVE")
@@ -246,6 +305,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         dateDoneButtonTapped()
         addKeyboardNotifications()
         addTargetActionMethods()
+        setupFromNote()
     }
     
     private func addTargetActionMethods() {
@@ -254,31 +314,6 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             action: #selector(saveNote),
             for: .touchDown
         )
-    }
-    
-    
-    func checkCoreData() {
-//        let manager = DBManager.shared
-        saveButton.addTarget(
-            self,
-            action: #selector(saveNote),
-            for: .touchDown
-        )
-    }
-    
-    @objc func saveNote() {
-        Task {
-            let dbService = DBManager.shared
-            let newRecord = await dbService.createNote(
-                header: headerTextField.text,
-                date: datePicker.date,
-                text: noteInputTextField.attributedText,
-                images: addedImages.map{$0.jpegData(compressionQuality: 1)}
-            )
-            if newRecord == nil {
-                print("make bottom sheet pop up with retry buttom...")
-            }
-        }
     }
     
     private func addToolbars() {
