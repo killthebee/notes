@@ -7,4 +7,8 @@ class NotePresenter: NotePresenterProtocol {
     required init(view: NoteViewController) {
         self.view = view
     }
+    
+    func getNoteData(_ note: Note) {
+        interactor?.getNoteData(note)
+    }
 }

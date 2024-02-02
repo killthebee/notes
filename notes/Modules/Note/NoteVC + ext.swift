@@ -3,7 +3,7 @@ import UIKit
 extension NoteViewController: ImagePickerDelegate {
     
     func didSelect(image: UIImage?) {
-        guard let image = image else {
+        guard let image = image?.resized(toHeight: 60) else {
             return
         }
         if addedImages.count > 1 {
@@ -12,7 +12,7 @@ extension NoteViewController: ImagePickerDelegate {
         addedImages.append(image)
         imagesStackView.removeAllArrangedSubviews()
         for noteImage in addedImages {
-            let newImage = noteImage.resized(toHeight: 60)
+            let newImage = noteImage
             
             let imageView = UIImageView(image: newImage)
             imagesStackView.addArrangedSubview(imageView)

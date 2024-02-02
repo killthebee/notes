@@ -21,36 +21,22 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     
     var addedImages: [UIImage] = []
     
-    private func setupFromNote() {
-        guard let note = noteObj else { return }
-        
-        if let dateData = note.date {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .none
-            
-            self.dateTextField.text = dateFormatter.string(from: dateData)
-        }
-        
-        if let header = note.header {
-            headerTextField.text = header
-        }
+    func setNoteData(
+        header: String?,
+        date: String?,
+        images: [UIImage],
+        text: NSAttributedString?
+    ) {
+        self.dateTextField.text = date
+        headerTextField.text = header
+        noteInputTextField.attributedText = text
         
         imagesStackView.removeAllArrangedSubviews()
-        for noteImageRelatedObject in note.images ?? [] {
-            guard
-                let noteImage = noteImageRelatedObject as? NoteImage,
-                let imageData = noteImage.imageData
-            else
-                { return }
-            let newImage = UIImage(data: imageData, scale:1.0)
-            let imageView = UIImageView(image: newImage)
+        addedImages = []
+        images.forEach{
+            let imageView = UIImageView(image: $0)
             imagesStackView.addArrangedSubview(imageView)
-//            addedImages.append(newImage!)
-        }
-        
-        if let text = note.text {
-            noteInputTextField.attributedText = text
+            addedImages.append($0)
         }
     }
     
@@ -305,7 +291,9 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         dateDoneButtonTapped()
         addKeyboardNotifications()
         addTargetActionMethods()
-        setupFromNote()
+        if let note = noteObj {
+            presenter?.getNoteData(note)
+        }
     }
     
     private func addTargetActionMethods() {

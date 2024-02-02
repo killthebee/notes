@@ -93,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				846395122B69096C00B0B3C5 /* NoteButton.swift */,
-				84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */,
 				84ABE7C52B6AA374007A9C56 /* TextInputField.swift */,
 			);
 			path = Views;
@@ -199,6 +198,7 @@
 			children = (
 				846395112B69095200B0B3C5 /* Views */,
 				8484BE532B68E90B00A75E7F /* NoteViewController.swift */,
+				84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */,
 				8484BE552B68E93000A75E7F /* NoteProtocols.swift */,
 				8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */,
 				8484BE592B68EA6F00A75E7F /* NotePresenter.swift */,

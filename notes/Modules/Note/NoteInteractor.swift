@@ -1,9 +1,8 @@
-import Foundation
+import UIKit
 
 class NoteInteractor: NoteInteractorProtocol {
     
     weak var presenter: NotePresenter?
-//    let dbService = DBManager.shared
     
     required init(presenter: NotePresenter) {
         self.presenter = presenter
@@ -31,6 +30,34 @@ class NoteInteractor: NoteInteractorProtocol {
             atrMutableText,
             range: range!,
             fontName: fontName
+        )
+    }
+    
+    func getNoteData(_ note: Note) {
+        var date: String? = nil
+        if let dateData = note.date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            date = dateFormatter.string(from: dateData)
+        }
+        
+        var images: [UIImage] = []
+        for noteImageRelatedObject in note.images ?? [] {
+            guard
+                let noteImage = noteImageRelatedObject as? NoteImage,
+                let imageData = noteImage.imageData,
+                let newImage = UIImage(data: imageData, scale:1.0)
+            else
+                { return }
+            images.append(newImage)
+        }
+        
+        presenter?.view?.setNoteData(
+            header: note.header,
+            date: date,
+            images: images,
+            text: note.text
         )
     }
 }
