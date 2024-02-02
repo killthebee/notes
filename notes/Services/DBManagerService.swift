@@ -23,6 +23,7 @@ class DBManager {
         return container
     }()
     
+    
     @MainActor
     func createNote(
         header: String?,
@@ -35,13 +36,12 @@ class DBManager {
         newNote.date = date
         newNote.header = header ?? ""
         newNote.text = text ?? NSAttributedString(string: "")
-        
+        newNote.isActive = true
         for imageData in images {
             let newImage = NoteImage(context: context)
             newImage.imageData = imageData
             newNote.addToImages(newImage)
         }
-        
         do {
             try context.save()
             return newNote
@@ -52,27 +52,13 @@ class DBManager {
         return nil
     }
     
-    func fetchNote(_ id: ObjectIdentifier) async -> Note? {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", id as! CVarArg)
-        fetchRequest.relationshipKeyPathsForPrefetching = ["images"]
-        
-        do {
-            let note = try context.fetch(fetchRequest)
-            return note.first
-        } catch let error {
-            print("Failed to fetch: \(error)")
-        }
-        
-        return nil
-    }
     
     func fetchNotes() async -> [Note]? {
         let context = persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
+        let predicate = NSPredicate(format: "isActive == %@", NSNumber(value: true))
+        fetchRequest.predicate = predicate
         fetchRequest.relationshipKeyPathsForPrefetching = ["images"]
         
         do {
@@ -97,7 +83,7 @@ class DBManager {
             guard
                 let currentNote = context.object(with: id) as? Note
             else
-            { return }
+                { return }
             currentNote.date = date
             currentNote.header = header ?? ""
             currentNote.text = text ?? NSAttributedString(string: "")
@@ -115,4 +101,18 @@ class DBManager {
             print("Failed to update: \(error)")
         }
    }
+    
+    func deleteNote(id: NSManagedObjectID) {
+        let context = persistentContainer.viewContext
+        do {
+            guard
+                let currentNote = context.object(with: id) as? Note
+            else
+                { return }
+            context.delete(currentNote)
+            try context.save()
+        } catch let error {
+            print("Failed to delete the spend: \(error)")
+        }
+    }
 }

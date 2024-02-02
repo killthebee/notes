@@ -2,13 +2,30 @@ import UIKit
 
 class NoteViewController: UIViewController, NoteViewProtocol {
     
+    // MARK: Dependencies -
     var presenter: NotePresenterProtocol?
     var mainVCDelegate: MainViewProtocol?
     private lazy var imagePicker = ImagePicker(
         presentationController: self,
         delegate: self
     )
+    private let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .wheels
+        
+        return picker
+    }()
     
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        
+        return dateFormatter
+    }()
+    
+    // MARK: Data -
     var isBoldOn = false
     var isItalicOn = false
     var isTextInput = false
@@ -18,9 +35,9 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         "italic": UIFont.italicSystemFont(ofSize: 15)
     ]
     var noteObj: Note? = nil
-    
     var addedImages: [UIImage] = []
     
+    // MARK: Logic -
     func setNoteData(
         header: String?,
         date: String?,
@@ -40,20 +57,20 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         }
     }
     
-    @objc func dateDoneButtonTapped() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        
+    @objc
+    func dateDoneButtonTapped() {
         self.dateTextField.text = dateFormatter.string(from: datePicker.date)
         view.endEditing(true)
     }
     
-    @objc func handleAddImageClicked(_ sender: UIButton) {
+    @objc
+    func handleAddImageClicked(_ sender: UIButton) {
+        view.endEditing(true)
         self.imagePicker.present(from: sender)
     }
     
-    @objc func dateCancelButtonTapped() {
+    @objc
+    func dateCancelButtonTapped() {
         view.endEditing(true)
     }
     
@@ -70,7 +87,8 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         noteInputTextField.attributedText = text
     }
     
-    @objc func boldChangeTapped(_ sender: UIButton) {
+    @objc
+    func boldChangeTapped(_ sender: UIButton) {
         isBoldOn = isBoldOn ? false : true
         sender.backgroundColor = isBoldOn ? .blue : .clear
         let fontName = presenter?.interactor?.getFontForBoldSwitch(
@@ -89,7 +107,8 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         )
     }
     
-    @objc func italicChangeTapped(_ sender: UIButton) {
+    @objc
+    func italicChangeTapped(_ sender: UIButton) {
         isItalicOn = isItalicOn ? false : true
         sender.backgroundColor = isItalicOn ? .blue : .clear
         
@@ -109,24 +128,23 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         )
     }
     
-    @objc func saveNote() {
+    @objc
+    func saveNote() {
         Task {
             let dbService = DBManager.shared
             if noteObj == nil {
+                let images = addedImages.map{$0.jpegData(compressionQuality: 1)}
                 let newRecord = await dbService.createNote(
                     header: headerTextField.text,
                     date: datePicker.date,
                     text: noteInputTextField.attributedText,
-                    images: addedImages.map{$0.jpegData(compressionQuality: 1)}
+                    images: images
                 )
                 
-                if newRecord == nil {
+                guard newRecord != nil else {
                     print("make bottom sheet pop up with retry buttom...")
                     return
                 }
-                
-                noteObj = newRecord
-                
             } else {
                 dbService.updateNote(
                     id: noteObj!.objectID,
@@ -142,18 +160,25 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         }
     }
     
-    @objc func dismissView() {
+    @objc
+    func dismissView() {
         presenter?.dismissRequested()
     }
     
+    func dismissViewAfterDelete() {
+        mainVCDelegate?.downloadNotes()
+        presenter?.dismissRequested()
+    }
+    
+    @objc
+    func deleteNote() {
+        presenter?.deleteNote(noteObj)
+    }
+    
+    // MARK: UI Elements -
     let saveButton = NoteControlButton("SAVE")
     let deleteButton = NoteControlButton("DELETE")
     let exitButton = NoteControlButton("<")
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configure()
-    }
     
     private let topButtonsContainerView = UIView()
     
@@ -173,14 +198,6 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         view.layer.cornerRadius = 20
         
         return view
-    }()
-    
-    private let datePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .date
-        picker.preferredDatePickerStyle = .wheels
-        
-        return picker
     }()
     
     private lazy var dateTextField: UITextField = {
@@ -293,6 +310,12 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         return button
     }()
     
+    // MARK: VC setup -
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
+    }
+    
     private func configure() {
         view.backgroundColor = mainBackgroundColor
         addSubviews()
@@ -300,12 +323,11 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         setUpConstrains()
         addToolbars()
         noteInputTextField.delegate = self
-        // set date field to today for new entries
         dateDoneButtonTapped()
         addKeyboardNotifications()
         addTargetActionMethods()
         if let note = noteObj {
-            presenter?.getNoteData(note)
+            presenter?.getNoteData(note, dateFormatter)
         }
     }
     
@@ -318,6 +340,11 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         exitButton.addTarget(
             self,
             action: #selector(dismissView),
+            for: .touchDown
+        )
+        deleteButton.addTarget(
+            self,
+            action: #selector(deleteNote),
             for: .touchDown
         )
     }

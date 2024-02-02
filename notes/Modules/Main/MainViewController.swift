@@ -2,21 +2,26 @@ import UIKit
 
 class MainViewController: UIViewController, MainViewProtocol {
     
+    // MARK: Dependencies -
     var presenter: MainPresenterProtocol?
     
+    // MARK: Data -
     var notes: [Note] = []
     
+    // MARK: Logic -
     func setNotes(_ notesFromBD: [Note]) {
         notes = []
         notes = notesFromBD
         collectionView.reloadData()
     }
     
-    @objc func thumbsUpButtonPressed(_ sender: UIButton) {
+    @objc
+    func thumbsUpButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
         presenter?.presentNoteScreen(nil)
     }
     
+    // MARK: UI Elements -
     lazy var collectionView : UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
@@ -71,6 +76,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         return button
     }()
     
+    // MARK: VC Setup -
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()

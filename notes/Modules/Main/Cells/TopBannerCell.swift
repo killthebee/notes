@@ -40,7 +40,9 @@ class TopBannerCell: UICollectionReusableView {
         containerView.widthAnchor.constraint(
             equalTo: bannerImageView.widthAnchor
         ).isActive = translatesAutoresizingMaskIntoConstraints
-        containerViewHeight = containerView.heightAnchor.constraint(equalTo: self.heightAnchor)
+        containerViewHeight = containerView.heightAnchor.constraint(
+            equalTo: self.heightAnchor
+        )
         containerViewHeight.isActive = true
         
         imageViewBottom = bannerImageView.bottomAnchor.constraint(

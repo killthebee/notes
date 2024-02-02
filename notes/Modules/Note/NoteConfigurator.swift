@@ -10,7 +10,7 @@ class NoteConfigurator: NoteConfiguratorProtocol {
         let presenter = NotePresenter(view: viewController)
         let router = NoteRouter(assembly: assembly, view: viewController)
         let interacor = NoteInteractor(presenter: presenter)
-//        
+        
         viewController.presenter = presenter
         presenter.interactor = interacor
         presenter.router = router

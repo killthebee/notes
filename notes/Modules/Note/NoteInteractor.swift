@@ -33,12 +33,9 @@ class NoteInteractor: NoteInteractorProtocol {
         )
     }
     
-    func getNoteData(_ note: Note) {
+    func getNoteData(_ note: Note, _ dateFormatter: DateFormatter) {
         var date: String? = nil
         if let dateData = note.date {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .none
             date = dateFormatter.string(from: dateData)
         }
         
@@ -59,5 +56,11 @@ class NoteInteractor: NoteInteractorProtocol {
             images: images,
             text: note.text
         )
+    }
+    
+    func deleteNote(_ note: Note?) {
+        let dbService = DBManager.shared
+        guard let objId = note?.objectID else { return }
+        dbService.deleteNote(id: objId)
     }
 }

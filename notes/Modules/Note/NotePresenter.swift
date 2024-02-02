@@ -1,3 +1,5 @@
+import Foundation
+
 class NotePresenter: NotePresenterProtocol {
     
     weak var view: NoteViewProtocol?
@@ -8,11 +10,15 @@ class NotePresenter: NotePresenterProtocol {
         self.view = view
     }
     
-    func getNoteData(_ note: Note) {
-        interactor?.getNoteData(note)
+    func getNoteData(_ note: Note, _ dateFormatter: DateFormatter) {
+        interactor?.getNoteData(note, dateFormatter)
     }
     
     func dismissRequested() {
         router?.dismissRequested()
+    }
+    
+    func deleteNote(_ note: Note?) {
+        interactor?.deleteNote(note)
     }
 }

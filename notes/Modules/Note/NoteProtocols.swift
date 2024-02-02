@@ -15,6 +15,7 @@ protocol NoteViewProtocol: AnyObject {
         images: [UIImage],
         text: NSAttributedString?
     )
+    func dismissViewAfterDelete()
 }
 
 protocol NoteConfiguratorProtocol: AnyObject {
@@ -24,8 +25,9 @@ protocol NoteConfiguratorProtocol: AnyObject {
 protocol NotePresenterProtocol: AnyObject {
     var interactor: NoteInteractorProtocol? { get set }
     var view: NoteViewProtocol? { get set }
-    func getNoteData(_ note: Note)
+    func getNoteData(_ note: Note, _ dateFormatter: DateFormatter)
     func dismissRequested()
+    func deleteNote(_ note: Note?)
 }
 
 protocol NoteInteractorProtocol: AnyObject {
@@ -36,7 +38,8 @@ protocol NoteInteractorProtocol: AnyObject {
         range: NSRange?,
         fontName: String
     )
-    func getNoteData(_ note: Note)
+    func getNoteData(_ note: Note, _ dateFormatter: DateFormatter)
+    func deleteNote(_ note: Note?)
 }
 
 protocol NoteRouterProtocol: AnyObject {
