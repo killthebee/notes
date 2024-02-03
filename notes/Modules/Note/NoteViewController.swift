@@ -165,14 +165,11 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         presenter?.dismissRequested()
     }
     
+    @objc
     func dismissViewAfterDelete() {
+        presenter?.deleteNote(noteObj)
         mainVCDelegate?.downloadNotes()
         presenter?.dismissRequested()
-    }
-    
-    @objc
-    func deleteNote() {
-        presenter?.deleteNote(noteObj)
     }
     
     // MARK: UI Elements -
@@ -344,7 +341,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         )
         deleteButton.addTarget(
             self,
-            action: #selector(deleteNote),
+            action: #selector(dismissViewAfterDelete),
             for: .touchDown
         )
     }
