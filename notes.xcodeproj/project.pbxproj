@@ -105,6 +105,7 @@
 		8484BDF52B66A21800A75E7F = {
 			isa = PBXGroup;
 			children = (
+				8499D8AB2B6E469C00ABBF61 /* images */,
 				8484BE002B66A21800A75E7F /* notes */,
 				8484BDFF2B66A21800A75E7F /* Products */,
 				8484BE1D2B66AAC300A75E7F /* Frameworks */,
@@ -122,7 +123,6 @@
 		8484BE002B66A21800A75E7F /* notes */ = {
 			isa = PBXGroup;
 			children = (
-				8499D8AB2B6E469C00ABBF61 /* images */,
 				84BAEC4A2B6A905D00B1D6E3 /* Services */,
 				8484BE4D2B67E6A000A75E7F /* utilities */,
 				8484BE332B677F2100A75E7F /* Extensions */,
