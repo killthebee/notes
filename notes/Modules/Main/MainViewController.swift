@@ -88,11 +88,37 @@ class MainViewController: UIViewController, MainViewProtocol {
         disableAutoresizing()
         setUpConstrains()
         configureCompositionalLayout()
-        downloadNotes()
+        
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let launchesCount = delegate.currentTimesOfOpenApp
+        if launchesCount == 1 {
+            craeteExampleNote()
+        } else {
+            downloadNotes()
+        }
     }
     
     func downloadNotes() {
         presenter?.downloadNotes()
+    }
+    
+    func craeteExampleNote() {
+        Task {
+            guard
+                let exampleImageData1 = UIImage(named: "example1")?.resized(toHeight: 60)?.pngData(),
+                let exampleImageData2 = UIImage(named: "example2")?.resized(toHeight: 60)?.pngData(),
+                let _ = await DBManager.shared.createNote(
+                    header: "Example Header",
+                    date: Date(),
+                    text: NSAttributedString(string: "Example note text"),
+                    images: [exampleImageData1, exampleImageData2]
+                )
+            else {
+                return
+            }
+            
+            downloadNotes()
+        }
     }
     
     private func addSubviews() {

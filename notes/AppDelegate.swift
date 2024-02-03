@@ -3,14 +3,30 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    let userDefaults = UserDefaults.standard
+    var currentTimesOfOpenApp: Int = 0
+
+    func saveTimesOfOpenApp() -> Void {
+        userDefaults.set(currentTimesOfOpenApp, forKey: "timesOfOpenApp")
+    }
+
+    func getCurrentTimesOfOpenApp() -> Int {
+        return userDefaults.integer(forKey: "timesOfOpenApp") + 1
+    }
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [
             UIApplication.LaunchOptionsKey: Any
-        ]?
-    ) -> Bool {
+        ]?) -> Bool {
+        self.currentTimesOfOpenApp = getCurrentTimesOfOpenApp()
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        saveTimesOfOpenApp()
+        self.saveContext()
     }
 
     // MARK: UISceneSession Lifecycle -
