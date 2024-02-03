@@ -36,6 +36,8 @@
 		8484BE582B68EA2000A75E7F /* NoteConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */; };
 		8484BE5A2B68EA6F00A75E7F /* NotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE592B68EA6F00A75E7F /* NotePresenter.swift */; };
 		8484BE5C2B68EC5800A75E7F /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */; };
+		8499D8AD2B6E46AA00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.00.png in Resources */ = {isa = PBXBuildFile; fileRef = 8499D8AC2B6E46A900ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.00.png */; };
+		8499D8AF2B6E46BD00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.31.png in Resources */ = {isa = PBXBuildFile; fileRef = 8499D8AE2B6E46BD00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.31.png */; };
 		84ABE7C62B6AA374007A9C56 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABE7C52B6AA374007A9C56 /* TextInputField.swift */; };
 		84BAEC4C2B6A906E00B1D6E3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */; };
 		84BAEC4E2B6A91E900B1D6E3 /* NoteVC + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */; };
@@ -73,6 +75,8 @@
 		8484BE572B68EA2000A75E7F /* NoteConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteConfigurator.swift; sourceTree = "<group>"; };
 		8484BE592B68EA6F00A75E7F /* NotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePresenter.swift; sourceTree = "<group>"; };
 		8484BE5B2B68EC5800A75E7F /* NoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRouter.swift; sourceTree = "<group>"; };
+		8499D8AC2B6E46A900ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.00.png"; sourceTree = "<group>"; };
+		8499D8AE2B6E46BD00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.31.png"; sourceTree = "<group>"; };
 		84ABE7C52B6AA374007A9C56 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
 		84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteVC + ext.swift"; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 		8484BE002B66A21800A75E7F /* notes */ = {
 			isa = PBXGroup;
 			children = (
+				8499D8AB2B6E469C00ABBF61 /* images */,
 				84BAEC4A2B6A905D00B1D6E3 /* Services */,
 				8484BE4D2B67E6A000A75E7F /* utilities */,
 				8484BE332B677F2100A75E7F /* Extensions */,
@@ -208,6 +213,15 @@
 			path = Note;
 			sourceTree = "<group>";
 		};
+		8499D8AB2B6E469C00ABBF61 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8499D8AC2B6E46A900ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.00.png */,
+				8499D8AE2B6E46BD00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.31.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		84BAEC4A2B6A905D00B1D6E3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +293,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8499D8AF2B6E46BD00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.31.png in Resources */,
+				8499D8AD2B6E46AA00ABBF61 /* Simulator Screenshot - iPhone 14 Pro - 2024-02-03 at 13.01.00.png in Resources */,
 				8484BE0E2B66A21900A75E7F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
