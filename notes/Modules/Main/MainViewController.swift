@@ -62,7 +62,7 @@ class MainViewController: UIViewController, MainViewProtocol {
          }
     }
     
-    lazy var addNoteButton: UIButton = {
+    private lazy var addNoteButton: UIButton = {
         let button = UIButton()
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "pencil.and.outline"), for: .normal)
@@ -76,10 +76,36 @@ class MainViewController: UIViewController, MainViewProtocol {
         return button
     }()
     
+    private let coverAddNoteButtonView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 25
+        
+        return view
+    }()
+    
     // MARK: VC Setup -
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startPulseAnimation()
+    }
+    
+    private func startPulseAnimation() {
+        UIView.animate(
+            withDuration: 1.5,
+            delay: 0,
+            options: [.repeat, .curveLinear],
+            animations: { [self] in
+                self.coverAddNoteButtonView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                self.coverAddNoteButtonView.alpha = 0.4
+            },
+            completion: nil
+        )
     }
     
     private func configure() {
@@ -122,22 +148,30 @@ class MainViewController: UIViewController, MainViewProtocol {
     }
     
     private func addSubviews() {
-        [collectionView, addNoteButton
+        [collectionView, coverAddNoteButtonView, addNoteButton
         ].forEach{view.addSubview($0)}
     }
     
     // MARK: Layout -
     private func disableAutoresizing() {
-        [collectionView, addNoteButton
+        [collectionView, addNoteButton, coverAddNoteButtonView
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
     private var buttonBottomConstraint: NSLayoutConstraint?
+    private var buttonCoverWidthConstraint: NSLayoutConstraint?
+    private var buttonCoverHeightConstraint: NSLayoutConstraint?
     
     func setUpConstrains() {
         buttonBottomConstraint = addNoteButton.bottomAnchor.constraint(
             equalTo: view.bottomAnchor,
             constant: -1 * view.frame.height * 0.1
+        )
+        buttonCoverWidthConstraint = coverAddNoteButtonView.widthAnchor.constraint(
+            equalToConstant: 50
+        )
+        buttonCoverHeightConstraint = coverAddNoteButtonView.heightAnchor.constraint(
+            equalToConstant: 50
         )
         
         let constraints: [NSLayoutConstraint] = [
@@ -148,12 +182,23 @@ class MainViewController: UIViewController, MainViewProtocol {
             ),
             collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.01),
             
+            
+            
             addNoteButton.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor
             ),
             buttonBottomConstraint!,
             addNoteButton.widthAnchor.constraint(equalToConstant: 50),
             addNoteButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            coverAddNoteButtonView.centerXAnchor.constraint(
+                equalTo: addNoteButton.centerXAnchor
+            ),
+            coverAddNoteButtonView.centerYAnchor.constraint(
+                equalTo: addNoteButton.centerYAnchor
+            ),
+            buttonCoverWidthConstraint!,
+            buttonCoverHeightConstraint!
         ]
         
         NSLayoutConstraint.activate(constraints)
