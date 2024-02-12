@@ -60,6 +60,8 @@ class DBManager {
         let predicate = NSPredicate(format: "isActive == %@", NSNumber(value: true))
         fetchRequest.predicate = predicate
         fetchRequest.relationshipKeyPathsForPrefetching = ["images"]
+        let dateSort = NSSortDescriptor(key: #keyPath(Note.date), ascending: false)
+        fetchRequest.sortDescriptors = [dateSort]
         
         do {
             let note = try context.fetch(fetchRequest)
