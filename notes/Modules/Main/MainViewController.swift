@@ -23,7 +23,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     }
     
     @objc
-    func thumbsUpButtonPressed(_ sender: UIButton) {
+    func newNoteButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
         presenter?.presentNoteScreen(nil)
     }
@@ -106,7 +106,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         button.setImage(UIImage(systemName: "pencil.and.outline"), for: .normal)
         button.addTarget(
             self,
-            action: #selector(thumbsUpButtonPressed),
+            action: #selector(newNoteButtonPressed),
             for: .touchUpInside
         )
         button.backgroundColor = buttonColor
