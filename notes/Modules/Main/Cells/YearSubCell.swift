@@ -4,6 +4,11 @@ class YearHeaderCell: UICollectionReusableView {
     
     static let cellIdentifier = "YearHeaderCellIdentifier"
     
+    var cellData: String? {
+        didSet {
+            yearLable.text = cellData ?? "2024"
+        }}
+    
     let yearLable: UILabel = {
         let lable = UILabel()
         lable.text = "2024"

@@ -77,6 +77,11 @@ extension MainViewController:
         else {
             fatalError("Cannot create header view")
         }
+        if notes.indices.contains(0) {
+            if let date = notes[0].date {
+                supplementaryView.cellData = dateFormatter.string(from: date)
+            }
+        }
         
         return supplementaryView
     }
@@ -95,16 +100,19 @@ extension MainViewController:
             yearHeaderContainer.isHidden = false
         } else {
             yearHeaderContainer.isHidden = true
+            return
         }
         
-//        print(scrollView.contentOffset.y)
-//        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-//        let visiblePoint = CGPoint(x: 100, y: visibleRect.midY)
-//        let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint)
-//        print(visibleIndexPath)
-//        if let row = visibleIndexPath?.row{
-//            print(notes[row].header)
-//        }
+        let visibleRect = CGRect(
+            origin: collectionView.contentOffset,
+            size: collectionView.bounds.size
+        )
+        let visiblePoint = CGPoint(x: 50, y: visibleRect.midY - 250)
+        let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint)
+        if let row = visibleIndexPath?.row{
+            guard let date = notes[row].date else { return }
+            yearHeader.text = dateFormatter.string(from: date)
+        }
             
     }
     

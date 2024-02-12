@@ -5,6 +5,12 @@ class MainViewController: UIViewController, MainViewProtocol {
     // MARK: Dependencies -
     var presenter: MainPresenterProtocol?
     var animator: UIViewPropertyAnimator?
+    let dateFormatter: DateFormatter = {
+        let formater = DateFormatter()
+        formater.dateFormat = "yyyy"
+        
+        return formater
+    }()
     
     // MARK: Data -
     var notes: [Note] = []
@@ -126,7 +132,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     let yearHeader: UILabel = {
         let lable = UILabel()
-        lable.text = "2074"
+        lable.text = "2024"
         lable.textColor = .white
         lable.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         lable.backgroundColor = mainBackgroundColor
