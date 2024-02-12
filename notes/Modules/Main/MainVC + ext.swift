@@ -26,9 +26,9 @@ extension MainViewController:
         if indexPath.section == 0 {
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: YearSubHeaderCell.cellIdentifier,
+                    withReuseIdentifier: TopBannerSubCell.cellIdentifier,
                     for: indexPath
-                ) as? YearSubHeaderCell
+                ) as? TopBannerSubCell
             else {
                 fatalError("Unable deque cell...")
             }
@@ -54,16 +54,29 @@ extension MainViewController:
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
+        if indexPath.section == 0 {
+            guard
+                let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: TopBannerCell.cellIdentifier,
+                    for: indexPath
+                ) as? TopBannerCell
+            else {
+                fatalError("Cannot create header view")
+            }
+            supplementaryView.scrollviewDidScroll(scrollView: collectionView)
+            
+            return supplementaryView
+        }
         guard
             let supplementaryView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: TopBannerCell.cellIdentifier,
+                withReuseIdentifier: YearHeaderCell.cellIdentifier,
                 for: indexPath
-            ) as? TopBannerCell
+            ) as? YearHeaderCell
         else {
             fatalError("Cannot create header view")
         }
-        supplementaryView.scrollviewDidScroll(scrollView: collectionView)
         
         return supplementaryView
     }
@@ -75,4 +88,24 @@ extension MainViewController:
             )
         }
     }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offestY = scrollView.contentOffset.y
+        if abs(offestY) > 250 {
+            yearHeaderContainer.isHidden = false
+        } else {
+            yearHeaderContainer.isHidden = true
+        }
+        
+//        print(scrollView.contentOffset.y)
+//        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+//        let visiblePoint = CGPoint(x: 100, y: visibleRect.midY)
+//        let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint)
+//        print(visibleIndexPath)
+//        if let row = visibleIndexPath?.row{
+//            print(notes[row].header)
+//        }
+            
+    }
+    
 }

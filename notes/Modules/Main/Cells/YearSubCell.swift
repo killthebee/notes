@@ -1,8 +1,8 @@
 import UIKit
 
-class YearSubHeaderCell: UICollectionViewCell {
+class YearHeaderCell: UICollectionReusableView {
     
-    static let cellIdentifier = "YearSubHeaderCellIdentifier"
+    static let cellIdentifier = "YearHeaderCellIdentifier"
     
     let yearLable: UILabel = {
         let lable = UILabel()
@@ -15,7 +15,7 @@ class YearSubHeaderCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .clear
+        backgroundColor = backgroundColor
         configure()
     }
     

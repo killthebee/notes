@@ -4,7 +4,7 @@ class MainVCLayouts {
     
     static let shared = MainVCLayouts()
     
-    func yearSubHeaderLayouts() -> NSCollectionLayoutSection {
+    func topBannerSubCellLayouts() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalHeight(1)
@@ -62,6 +62,17 @@ class MainVCLayouts {
             top: spacing, leading: spacing, bottom: spacing, trailing: spacing
         )
         section.interGroupSpacing = spacing
+        
+        section.boundarySupplementaryItems = [
+            .init(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(30)
+                ),
+                elementKind: "YearHeader",
+                alignment: .top
+            )
+        ]
         
         return section
     }

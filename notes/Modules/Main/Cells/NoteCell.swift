@@ -61,7 +61,7 @@ class NoteCell: UICollectionViewCell {
         lable.text = "Header's empty :("
         lable.textColor = dateColor
         lable.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        
+
         return lable
     }()
     

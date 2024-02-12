@@ -64,8 +64,14 @@ class MainViewController: UIViewController, MainViewProtocol {
         )
         
         collectionView.register(
-            YearSubHeaderCell.self,
-            forCellWithReuseIdentifier: YearSubHeaderCell.cellIdentifier
+            YearHeaderCell.self,
+            forSupplementaryViewOfKind: "YearHeader",
+            withReuseIdentifier: YearHeaderCell.cellIdentifier
+        )
+        
+        collectionView.register(
+            TopBannerSubCell.self,
+            forCellWithReuseIdentifier: TopBannerSubCell.cellIdentifier
         )
         
         collectionView.register(
@@ -108,6 +114,23 @@ class MainViewController: UIViewController, MainViewProtocol {
         view.layer.cornerRadius = 25
         
         return view
+    }()
+    
+    let yearHeaderContainer: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        view.backgroundColor = mainBackgroundColor
+        
+        return view
+    }()
+    
+    let yearHeader: UILabel = {
+        let lable = UILabel()
+        lable.text = "2074"
+        lable.textColor = .white
+        lable.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        lable.backgroundColor = mainBackgroundColor
+        return lable
     }()
     
     // MARK: VC Setup -
@@ -163,13 +186,15 @@ class MainViewController: UIViewController, MainViewProtocol {
     }
     
     private func addSubviews() {
-        [collectionView, coverAddNoteButtonView, addNoteButton
+        [collectionView, coverAddNoteButtonView, addNoteButton, yearHeaderContainer
         ].forEach{view.addSubview($0)}
+        yearHeaderContainer.addSubview(yearHeader)
     }
     
     // MARK: Layout -
     private func disableAutoresizing() {
-        [collectionView, addNoteButton, coverAddNoteButtonView
+        [collectionView, addNoteButton, coverAddNoteButtonView, yearHeader,
+         yearHeaderContainer
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
@@ -213,7 +238,27 @@ class MainViewController: UIViewController, MainViewProtocol {
                 equalTo: addNoteButton.centerYAnchor
             ),
             buttonCoverWidthConstraint!,
-            buttonCoverHeightConstraint!
+            buttonCoverHeightConstraint!,
+            
+            yearHeaderContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            yearHeaderContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            yearHeaderContainer.topAnchor.constraint(equalTo: view.topAnchor),
+            yearHeaderContainer.heightAnchor.constraint(equalToConstant: 70),
+            
+            yearHeader.topAnchor.constraint(
+                equalTo: yearHeaderContainer.topAnchor,
+                constant: 35
+            ),
+            yearHeader.bottomAnchor.constraint(
+                equalTo: yearHeaderContainer.bottomAnchor
+            ),
+            yearHeader.leadingAnchor.constraint(
+                equalTo: yearHeaderContainer.leadingAnchor,
+                constant: 16
+            ),
+            yearHeader.trailingAnchor.constraint(
+                equalTo: yearHeaderContainer.trailingAnchor
+            ),
         ]
         
         NSLayoutConstraint.activate(constraints)
@@ -233,7 +278,7 @@ extension MainViewController {
     func configureCompositionalLayout(){
         let layout = UICollectionViewCompositionalLayout {sectionIndex,enviroment in
             if sectionIndex == 0 {
-                return MainVCLayouts.shared.yearSubHeaderLayouts()
+                return MainVCLayouts.shared.topBannerSubCellLayouts()
             }
             
             return MainVCLayouts.shared.notesLayout()
