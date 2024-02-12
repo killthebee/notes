@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		843F79F42B6900A500563976 /* NoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843F79F32B6900A500563976 /* NoteInteractor.swift */; };
 		844C91612B6BD454000DF881 /* DBManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C91602B6BD454000DF881 /* DBManagerService.swift */; };
+		84604ABE2B7A06EA00A98CED /* AnimatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84604ABD2B7A06EA00A98CED /* AnimatorFactory.swift */; };
 		846395132B69096C00B0B3C5 /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846395122B69096C00B0B3C5 /* NoteButton.swift */; };
 		8484BE022B66A21800A75E7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE012B66A21800A75E7F /* AppDelegate.swift */; };
 		8484BE042B66A21800A75E7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484BE032B66A21800A75E7F /* SceneDelegate.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		843F79F32B6900A500563976 /* NoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInteractor.swift; sourceTree = "<group>"; };
 		844C91602B6BD454000DF881 /* DBManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManagerService.swift; sourceTree = "<group>"; };
+		84604ABD2B7A06EA00A98CED /* AnimatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorFactory.swift; sourceTree = "<group>"; };
 		846395122B69096C00B0B3C5 /* NoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
 		8484BDFE2B66A21800A75E7F /* notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8484BE012B66A21800A75E7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				8484BE2D2B6778FA00A75E7F /* misc.swift */,
+				84604ABD2B7A06EA00A98CED /* AnimatorFactory.swift */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				8484BE372B67805500A75E7F /* MainProtocols.swift in Sources */,
 				8484BE2E2B6778FA00A75E7F /* misc.swift in Sources */,
 				8484BE392B6780CC00A75E7F /* MainConfigurator.swift in Sources */,
+				84604ABE2B7A06EA00A98CED /* AnimatorFactory.swift in Sources */,
 				8484BE4F2B67F1B500A75E7F /* UIImage + ext.swift in Sources */,
 				844C91612B6BD454000DF881 /* DBManagerService.swift in Sources */,
 				8484BE5A2B68EA6F00A75E7F /* NotePresenter.swift in Sources */,

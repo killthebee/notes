@@ -4,6 +4,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     // MARK: Dependencies -
     var presenter: MainPresenterProtocol?
+    var animator: UIViewPropertyAnimator?
     
     // MARK: Data -
     var notes: [Note] = []
@@ -19,6 +20,31 @@ class MainViewController: UIViewController, MainViewProtocol {
     func thumbsUpButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
         presenter?.presentNoteScreen(nil)
+    }
+    
+    func stopPulseAnimation() {
+        animator?.stopAnimation(true)
+    }
+    
+    func continueAnimation() {
+        animator?.addAnimations {
+            self.coverAddNoteButtonView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.coverAddNoteButtonView.alpha = 0.4
+        }
+        animator?.addCompletion { _ in
+            self.coverAddNoteButtonView.transform = .identity
+            self.coverAddNoteButtonView.alpha = 1.0
+        }
+        
+        animator?.startAnimation()
+    }
+    
+    func startPulseAnimationTask() {
+        presenter?.startPulseAnimationTask()
+    }
+    
+    func startPulseAnimation() {
+        animator?.startAnimation()
     }
     
     // MARK: UI Elements -
@@ -59,7 +85,7 @@ class MainViewController: UIViewController, MainViewProtocol {
             at: IndexPath(item: 0, section: 0)
         ) as? TopBannerCell {
             header.scrollviewDidScroll(scrollView: collectionView)
-         }
+        }
     }
     
     private lazy var addNoteButton: UIButton = {
@@ -92,20 +118,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        startPulseAnimation()
-    }
-    
-    private func startPulseAnimation() {
-        UIView.animate(
-            withDuration: 1.5,
-            delay: 0,
-            options: [.repeat, .curveLinear],
-            animations: { [self] in
-                self.coverAddNoteButtonView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-                self.coverAddNoteButtonView.alpha = 0.4
-            },
-            completion: nil
-        )
+        startPulseAnimationTask()
     }
     
     private func configure() {
@@ -122,6 +135,8 @@ class MainViewController: UIViewController, MainViewProtocol {
         } else {
             downloadNotes()
         }
+        
+        animator = AnimatorFactory.rotateRepeat(view: coverAddNoteButtonView)
     }
     
     func downloadNotes() {

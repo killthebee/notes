@@ -18,6 +18,26 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func presentNoteScreen(_ note: Note?) {
+        invalidatePulseAnimtaion()
         router?.presentNoteScreen(note)
+    }
+    
+    func startPulseAnimationTask() {
+        interactor?.startAnimationTask()
+    }
+    
+    func pulse() {
+        view?.startPulseAnimation()
+    }
+    
+    func invalidatePulseAnimtaion() {
+        interactor?.invalidateAnimationTask()
+    }
+    
+    func stopPulseAnimation() {
+        view?.stopPulseAnimation()
+    }
+    func continueAnimation() {
+        view?.continueAnimation()
     }
 }
