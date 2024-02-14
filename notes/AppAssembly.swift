@@ -23,3 +23,15 @@ extension AppAssembly {
         return noteVC
     }
 }
+
+// MARK: Password Screen -
+extension AppAssembly {
+    func makePasswordScreen() -> Presentable {
+        let passwordVC = PasswordViewController()
+        let configurator = PasswordConfigurator(assembly: self)
+        configurator.configure(with: passwordVC)
+        
+        return passwordVC
+    }
+}
+
