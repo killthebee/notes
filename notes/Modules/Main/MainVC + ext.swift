@@ -95,14 +95,6 @@ extension MainViewController:
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let offestY = scrollView.contentOffset.y
-        if abs(offestY) > 250 {
-            yearHeaderContainer.isHidden = false
-        } else {
-            yearHeaderContainer.isHidden = true
-            return
-        }
-        
         let visibleRect = CGRect(
             origin: collectionView.contentOffset,
             size: collectionView.bounds.size

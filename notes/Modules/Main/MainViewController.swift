@@ -98,6 +98,14 @@ class MainViewController: UIViewController, MainViewProtocol {
         ) as? TopBannerCell {
             header.scrollviewDidScroll(scrollView: collectionView)
         }
+        
+        let offestY = scrollView.contentOffset.y
+        if abs(offestY) > 250 {
+            yearHeaderContainer.isHidden = false
+        } else {
+            yearHeaderContainer.isHidden = true
+            return
+        }
     }
     
     private lazy var addNoteButton: UIButton = {
