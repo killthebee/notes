@@ -28,6 +28,7 @@ extension PasswordViewController:
         }
         
         cell.cellData = numPadSymbols[indexPath.section][indexPath.row]
+        cell.presenter = presenter
         
         return cell
     }

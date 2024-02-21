@@ -3,6 +3,7 @@ import UIKit
 class NumCell: UICollectionViewCell {
     
     static let identifier = "NumCellIdentifyer"
+    var presenter: PasswordPresenterProtocol?
     var cellData: String? {
         didSet {
             numButton.setTitle(cellData, for: .normal)
@@ -14,24 +15,37 @@ class NumCell: UICollectionViewCell {
         sender.startAnimatingPressActions()
     }
     
-    let numButton: UIButton = {
+    lazy var numButton: UIButton = {
         let numButton = UIButton()
         numButton.backgroundColor = .clear
         numButton.setTitleColor(dateColor, for: .normal)
         numButton.titleLabel?.font = UIFont.systemFont(ofSize: 62, weight: .bold)
         numButton.translatesAutoresizingMaskIntoConstraints = false
+        numButton.addTarget(
+            self,
+            action: #selector(numButtonPressed),
+            for: .touchDown
+        )
+        numButton.startAnimatingPressActions()
         
         return numButton
     }()
     
+    let coverView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(numButton)
+        coverView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(coverView)
+        coverView.addSubview(numButton)
         let constraints: [NSLayoutConstraint] = [
-            numButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            numButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            numButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            numButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            coverView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            coverView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            coverView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            coverView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            numButton.centerXAnchor.constraint(equalTo: coverView.centerXAnchor),
+            numButton.centerYAnchor.constraint(equalTo: coverView.centerYAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }
