@@ -5,7 +5,6 @@ class PasswordVCLayouts {
     static let shared = PasswordVCLayouts()
     
     func numsLayouts() -> NSCollectionLayoutSection {
-        let spacing: CGFloat = 10
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.33333333),
             heightDimension: .fractionalHeight(1)
