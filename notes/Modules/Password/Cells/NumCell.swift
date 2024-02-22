@@ -13,6 +13,7 @@ class NumCell: UICollectionViewCell {
     @objc
     func numButtonPressed(_ sender: UIButton) {
         sender.startAnimatingPressActions()
+        presenter?.numPressed(num: sender.titleLabel?.text)
     }
     
     lazy var numButton: UIButton = {

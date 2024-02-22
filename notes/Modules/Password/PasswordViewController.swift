@@ -12,6 +12,23 @@ class PasswordViewController: UIViewController, PasswordViewProtocol {
         ["", "0", "<"]
     ]
     
+    func addDot() {
+        let dot = makeDot()
+        dotsStackView.addArrangedSubview(dot)
+    }
+    
+    func removeDot() {
+        let dot = dotsStackView.arrangedSubviews[0]
+        dotsStackView.removeOneArrangedSubview()
+    }
+    
+    private func makeDot() -> UIImageView {
+        let view = UIImageView(image: UIImage(named: "dot"))
+        view.contentMode = .scaleAspectFit
+        
+        return view
+    }
+    
     private let buttomTextLable: UILabel = {
         let lable = UILabel()
         lable.textAlignment = .center
@@ -39,26 +56,13 @@ class PasswordViewController: UIViewController, PasswordViewProtocol {
         return collectionView
     }()
     
-    private let starsStackView: UIStackView = {
+    private let dotsStackView: UIStackView = {
         let stack = UIStackView()
         stack.backgroundColor = buttonColor
         stack.layer.cornerRadius = 20
         stack.axis = .horizontal
         stack.isUserInteractionEnabled = false
         stack.distribution = .fillEqually
-        
-        for _ in 0 ..< 4 {
-            let starView = UITextView()
-            starView.text = "*"
-            starView.textColor = dateColor
-            starView.backgroundColor = .clear
-            starView.isUserInteractionEnabled = false
-            starView.showsVerticalScrollIndicator = false
-            starView.sizeToFit()
-            starView.textAlignment = .center
-            starView.font = UIFont.systemFont(ofSize: 62, weight: .bold)
-            stack.addArrangedSubview(starView)
-        }
         
         return stack
     }()
@@ -77,34 +81,34 @@ class PasswordViewController: UIViewController, PasswordViewProtocol {
     }
     
     private func addSubviews() {
-        [starsStackView, buttomTextLable, collectionView
+        [dotsStackView, buttomTextLable, collectionView
         ].forEach{view.addSubview($0)}
     }
     
     private func disableAutoresizing() {
-        [starsStackView, buttomTextLable, collectionView
+        [dotsStackView, buttomTextLable, collectionView
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
     func setUpConstrains() {
         let spacing: CGFloat = 16
         let constraints: [NSLayoutConstraint] = [
-            starsStackView.topAnchor.constraint(
+            dotsStackView.topAnchor.constraint(
                 equalTo: view.topAnchor,
                 constant: view.bounds.height * 0.2
             ),
-            starsStackView.leadingAnchor.constraint(
+            dotsStackView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: spacing
             ),
-            starsStackView.trailingAnchor.constraint(
+            dotsStackView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -1 * spacing
             ),
-            starsStackView.heightAnchor.constraint(equalToConstant: 62),
+            dotsStackView.heightAnchor.constraint(equalToConstant: 62),
             
             collectionView.topAnchor.constraint(
-                equalTo: starsStackView.bottomAnchor,
+                equalTo: dotsStackView.bottomAnchor,
                 constant: 30
             ),
             collectionView.leadingAnchor.constraint(

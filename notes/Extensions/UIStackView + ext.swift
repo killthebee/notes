@@ -17,4 +17,11 @@ extension UIStackView {
         
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
+    
+    func removeOneArrangedSubview() {
+        guard arrangedSubviews.count > 0 else { return }
+        let removedSubview = arrangedSubviews[0]
+        NSLayoutConstraint.deactivate(removedSubview.constraints)
+        removedSubview.removeFromSuperview()
+    }
 }
