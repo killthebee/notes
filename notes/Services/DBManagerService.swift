@@ -117,4 +117,39 @@ class DBManager {
             print("Failed to delete the spend: \(error)")
         }
     }
+    
+    func flushAppData() {
+        let context = persistentContainer.viewContext
+        let imagesFetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(
+            entityName: "NoteImage"
+        )
+        let imagesDeleteReuqest = NSBatchDeleteRequest(
+            fetchRequest: imagesFetchRequest
+        )
+        
+        do {
+            try persistentContainer.persistentStoreCoordinator.execute(
+                imagesDeleteReuqest,
+                with: context
+            )
+        } catch let error as NSError {
+            print("fieled to delete images: \(error)")
+        }
+        
+        let notesFetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(
+            entityName: "Note"
+        )
+        let notesDeleteReuqest = NSBatchDeleteRequest(
+            fetchRequest: notesFetchRequest
+        )
+        
+        do {
+            try persistentContainer.persistentStoreCoordinator.execute(
+                notesDeleteReuqest,
+                with: context
+            )
+        } catch let error as NSError {
+            print("fieled to delete notes: \(error)")
+        }
+    }
 }

@@ -10,11 +10,11 @@ class PasswordPresenter: PasswordPresenterProtocol {
     
     func numPressed(num: String?) {
         guard let view = view else { return }
-        interactor?.numPressed(num: num, view.numsIput)
+        interactor?.numPressed(num: num, view.numsInput)
     }
     
     func setNewInput(nums: String) {
-        view?.numsIput = nums
+        view?.numsInput = nums
     }
     
     func addDot() {
@@ -23,5 +23,26 @@ class PasswordPresenter: PasswordPresenterProtocol {
     
     func removeDot() {
         view?.removeDot()
+    }
+    
+    func handleInput() {
+        view?.handleInput()
+    }
+    
+    func presentMainScreen(cleanStart: Bool) {
+        router?.presentMainScreen(cleanStart: cleanStart)
+    }
+    
+    func isCorrectPW(_ numsInput: String) -> Bool {
+        interactor?.isCorrectPW(numsInput) ?? false
+    }
+    
+    func handlePWSave() {
+        guard let view = view else { return }
+        interactor?.handlePWSave(view.numsInput)
+    }
+    
+    func resetApp() {
+        interactor?.resetApp()
     }
 }

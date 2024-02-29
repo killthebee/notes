@@ -47,9 +47,11 @@
 		8499D8B12B6E4A3900ABBF61 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8499D8B02B6E4A3900ABBF61 /* README.md */; };
 		8499D8B32B6E4D2300ABBF61 /* cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 8499D8B22B6E4D2300ABBF61 /* cover.png */; };
 		84ABE7C62B6AA374007A9C56 /* TextInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ABE7C52B6AA374007A9C56 /* TextInputField.swift */; };
+		84AFA6A92B8DC30900B1AF72 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFA6A82B8DC30900B1AF72 /* strings.swift */; };
 		84BAEC4C2B6A906E00B1D6E3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */; };
 		84BAEC4E2B6A91E900B1D6E3 /* NoteVC + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */; };
 		84E2B2352B85EACD00143E0D /* PasswordVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2B2342B85EACD00143E0D /* PasswordVCLayouts.swift */; };
+		84E2B2372B874F5300143E0D /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2B2362B874F5300143E0D /* KeyChainManager.swift */; };
 		84FDCB4C2B8384860051A61F /* NumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FDCB4B2B8384860051A61F /* NumCell.swift */; };
 		84FDCB4E2B8385D50051A61F /* PasswordVC + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FDCB4D2B8385D50051A61F /* PasswordVC + ext.swift */; };
 /* End PBXBuildFile section */
@@ -97,9 +99,11 @@
 		8499D8B02B6E4A3900ABBF61 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8499D8B22B6E4D2300ABBF61 /* cover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover.png; sourceTree = "<group>"; };
 		84ABE7C52B6AA374007A9C56 /* TextInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputField.swift; sourceTree = "<group>"; };
+		84AFA6A82B8DC30900B1AF72 /* strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		84BAEC4D2B6A91E900B1D6E3 /* NoteVC + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteVC + ext.swift"; sourceTree = "<group>"; };
 		84E2B2342B85EACD00143E0D /* PasswordVCLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVCLayouts.swift; sourceTree = "<group>"; };
+		84E2B2362B874F5300143E0D /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		84FDCB4B2B8384860051A61F /* NumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumCell.swift; sourceTree = "<group>"; };
 		84FDCB4D2B8385D50051A61F /* PasswordVC + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasswordVC + ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +131,7 @@
 				84604ACC2B7CA8F400A98CED /* PasswordInteractor.swift */,
 				84FDCB4D2B8385D50051A61F /* PasswordVC + ext.swift */,
 				84E2B2342B85EACD00143E0D /* PasswordVCLayouts.swift */,
+				84AFA6A82B8DC30900B1AF72 /* strings.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 			children = (
 				84BAEC4B2B6A906E00B1D6E3 /* ImagePicker.swift */,
 				844C91602B6BD454000DF881 /* DBManagerService.swift */,
+				84E2B2362B874F5300143E0D /* KeyChainManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -356,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8484BE372B67805500A75E7F /* MainProtocols.swift in Sources */,
+				84E2B2372B874F5300143E0D /* KeyChainManager.swift in Sources */,
 				8484BE2E2B6778FA00A75E7F /* misc.swift in Sources */,
 				8484BE392B6780CC00A75E7F /* MainConfigurator.swift in Sources */,
 				84604ABE2B7A06EA00A98CED /* AnimatorFactory.swift in Sources */,
@@ -396,6 +403,7 @@
 				84604ACD2B7CA8F400A98CED /* PasswordInteractor.swift in Sources */,
 				843F79F42B6900A500563976 /* NoteInteractor.swift in Sources */,
 				8484BE582B68EA2000A75E7F /* NoteConfigurator.swift in Sources */,
+				84AFA6A92B8DC30900B1AF72 /* strings.swift in Sources */,
 				84E2B2352B85EACD00143E0D /* PasswordVCLayouts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

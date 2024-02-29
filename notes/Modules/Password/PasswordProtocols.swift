@@ -1,7 +1,8 @@
 protocol PasswordViewProtocol: AnyObject {
-    var numsIput: String { get set }
+    var numsInput: String { get set }
     func addDot()
     func removeDot()
+    func handleInput()
 }
 
 protocol PasswordConfiguratorProtocol: AnyObject {
@@ -13,12 +14,20 @@ protocol PasswordPresenterProtocol: AnyObject {
     func setNewInput(nums: String)
     func addDot()
     func removeDot()
+    func handleInput()
+    func presentMainScreen(cleanStart: Bool)
+    func isCorrectPW(_ numsInput: String) -> Bool
+    func handlePWSave()
+    func resetApp()
 }
 
 protocol PasswordInteractorProtocol: AnyObject {
     func numPressed(num: String?, _ currentInput: String)
+    func isCorrectPW(_ numsInput: String) -> Bool
+    func handlePWSave(_ numsInput: String)
+    func resetApp()
 }
 
 protocol PasswordRouterProtocol: AnyObject {
-    
+    func presentMainScreen(cleanStart: Bool)
 }

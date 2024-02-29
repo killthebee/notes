@@ -2,26 +2,16 @@ import UIKit
 
 class PasswordViewController: UIViewController, PasswordViewProtocol {
     
+    //MARK: Dependecies-
     var presenter: PasswordPresenterProtocol?
     
-    var numsIput: String = ""
-    let numPadSymbols: [[String]] = [
-        ["1", "2", "3"],
-        ["4", "5", "6"],
-        ["7", "8", "9"],
-        ["", "0", "<"]
-    ]
+    //MARK: Data-
+    var numsInput: String = ""
+    var inputedNums: String = ""
     
-    func addDot() {
-        let dot = makeDot()
-        dotsStackView.addArrangedSubview(dot)
-    }
+    var pwExists = false
     
-    func removeDot() {
-        let dot = dotsStackView.arrangedSubviews[0]
-        dotsStackView.removeOneArrangedSubview()
-    }
-    
+    //MARK: Logic-
     private func makeDot() -> UIImageView {
         let view = UIImageView(image: UIImage(named: "dot"))
         view.contentMode = .scaleAspectFit
@@ -29,10 +19,78 @@ class PasswordViewController: UIViewController, PasswordViewProtocol {
         return view
     }
     
-    private let buttomTextLable: UILabel = {
+    func addDot() {
+        let dot = makeDot()
+        dotsStackView.addArrangedSubview(dot)
+    }
+    
+    func removeDot() {
+        dotsStackView.removeOneArrangedSubview()
+    }
+    
+    func handleInput() {
+        if pwExists {
+            if presenter?.isCorrectPW(numsInput) ?? false {
+                return
+            }
+            handleFailledPWAttmept()
+            return
+        }
+        
+        if inputedNums == "" {
+            startRepeatPW()
+            return
+        }
+        
+        if inputedNums == numsInput {
+            presenter?.handlePWSave()
+            return
+        }
+    }
+    
+    private func handleFailledPWAttmept() {
+        dotsStackView.removeAllArrangedSubviews()
+        numsInput = ""
+        let retryPWAttributedString = NSMutableAttributedString(
+            string: retryPWString
+        )
+        let resetRange = (retryPWString as NSString).range(
+            of: resetRangeString
+        )
+        retryPWAttributedString.addAttribute(
+            NSAttributedString.Key.foregroundColor,
+            value: UIColor.blue,
+            range: resetRange
+        )
+        buttomTextLable.isUserInteractionEnabled = true
+        buttomTextLable.attributedText = retryPWAttributedString
+    }
+    
+    private func startRepeatPW() {
+        inputedNums = numsInput
+        numsInput = ""
+        dotsStackView.removeAllArrangedSubviews()
+        buttomTextLable.attributedText = NSMutableAttributedString(
+            string: repeatPWString
+        )
+    }
+    
+    @objc
+    private func resetPressed() {
+        presenter?.resetApp()
+        numsInput = ""
+        inputedNums = ""
+        buttomTextLable.attributedText = NSMutableAttributedString(string: createPWString)
+        pwExists = false
+    }
+    
+    private lazy var buttomTextLable: UILabel = {
         let lable = UILabel()
         lable.textAlignment = .center
-        lable.text = "create 4 digit password"
+        lable.attributedText = NSMutableAttributedString(string: createPWString)
+        lable.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(resetPressed))
+        )
         lable.textColor = buttonColor
         
         return lable
@@ -78,6 +136,10 @@ class PasswordViewController: UIViewController, PasswordViewProtocol {
         disableAutoresizing()
         setUpConstrains()
         configureCompositionalLayout()
+        if let pw = KeyChainManager().readPW(service: "pw-storage", account: "pw") {
+            buttomTextLable.attributedText = NSMutableAttributedString(string: typeInPwString)
+            pwExists = true
+        }
     }
     
     private func addSubviews() {
