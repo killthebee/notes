@@ -14,6 +14,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     // MARK: Data -
     var notes: [Note] = []
+    var needExampleNote = false
     
     // MARK: Logic -
     func setNotes(_ notesFromBD: [Note]) {
@@ -165,9 +166,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         setUpConstrains()
         configureCompositionalLayout()
         
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        let launchesCount = delegate.currentTimesOfOpenApp
-        if launchesCount == 1 {
+        if needExampleNote {
             craeteExampleNote()
         } else {
             downloadNotes()

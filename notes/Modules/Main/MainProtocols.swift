@@ -1,4 +1,5 @@
 protocol MainViewProtocol: AnyObject {
+    var needExampleNote: Bool { get set }
     func downloadNotes()
     func setNotes(_ notesFromBD: [Note])
     func startPulseAnimationTask()
