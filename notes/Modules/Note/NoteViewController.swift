@@ -29,10 +29,16 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     var isBoldOn = false
     var isItalicOn = false
     var isTextInput = false
-    let possibleFonts: [String: UIFont] = [
+    var possibleFonts: [String: UIFont] = [:]
+    let regularFonts: [String: UIFont] = [
         "regular": UIFont.systemFont(ofSize: 15, weight: .regular),
         "bold": UIFont.systemFont(ofSize: 15, weight: .bold),
         "italic": UIFont.italicSystemFont(ofSize: 15)
+    ]
+    let snellFonts: [String: UIFont] = [
+        "regular": UIFont(name:"SnellRoundhand", size: 20)!,
+        "bold": UIFont(name:"SnellRoundhand-Black", size: 20)!,
+        "italic": UIFont(name:"SnellRoundhand", size: 20)!
     ]
     var noteObj: Note? = nil
     var addedImages: [UIImage] = []
@@ -307,6 +313,55 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         return button
     }()
     
+    private lazy var fontButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "fontIcon"), for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        button.menu = getFontMenu()
+        button.layer.cornerRadius = 15
+        
+        return button
+    }()
+    
+    private func getFontMenu() -> UIMenu {
+        let regular = UIAction(title: "regular", image: nil) { (action) in
+            self.possibleFonts = self.regularFonts
+            
+            let targetFont = self.possibleFonts["regular"]
+            
+            self.noteInputTextField.typingAttributes?[
+                NSAttributedString.Key.font
+            ] = targetFont
+            
+            self.presenter?.interactor?.makeNewAtrText(
+                self.noteInputTextField.attributedText,
+                range: self.noteInputTextField.selectedRange,
+                fontName: "regular"
+            )
+        }
+        let snell = UIAction(title: "snell", image: nil) { (action) in
+            self.possibleFonts = self.snellFonts
+            
+            let targetFont = self.possibleFonts["regular"]
+            
+            self.noteInputTextField.typingAttributes?[
+                NSAttributedString.Key.font
+            ] = targetFont
+            
+            self.presenter?.interactor?.makeNewAtrText(
+                self.noteInputTextField.attributedText,
+                range: self.noteInputTextField.selectedRange,
+                fontName: "regular"
+            )
+        }
+        let menu = UIMenu(
+            options: .displayInline,
+            children: [regular, snell]
+        )
+        
+        return menu
+    }
+    
     // MARK: VC setup -
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -315,6 +370,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     
     private func configure() {
         view.backgroundColor = mainBackgroundColor
+        possibleFonts = regularFonts
         addSubviews()
         disableAutoresizing()
         setUpConstrains()
@@ -427,7 +483,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         [imageStackCoverView, addImageButton,
         ].forEach{imagesContainerView.addSubview($0)}
         imageStackCoverView.addSubview(imagesStackView)
-        [boldButton, italicButton
+        [boldButton, italicButton, fontButton
         ].forEach{editorButtonsContainerView.addSubview($0)}
     }
     
@@ -437,7 +493,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
          deleteButton, exitButton, dateTextField, noteAreaContainer,
          imageLable, noteTextLable, imagesStackView, imagesContainerView,
          addImageButton, noteInputTextField, imageStackCoverView, boldButton,
-         italicButton, headerTextField
+         italicButton, headerTextField, fontButton
         ].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
     }
     
@@ -514,7 +570,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
                 equalTo: view.centerXAnchor
             ),
             editorButtonsContainerView.widthAnchor.constraint(
-                equalToConstant: 150
+                equalToConstant: 153
             ),
             editorButtonsContainerView.heightAnchor.constraint(
                 equalToConstant: 40
@@ -675,6 +731,16 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             ),
             italicButton.widthAnchor.constraint(equalToConstant: 30),
             italicButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            fontButton.centerYAnchor.constraint(
+                equalTo: editorButtonsContainerView.centerYAnchor
+            ),
+            fontButton.leadingAnchor.constraint(
+                equalTo: italicButton.trailingAnchor,
+                constant: edgeSpacing
+            ),
+            fontButton.widthAnchor.constraint(equalToConstant: 30),
+            fontButton.heightAnchor.constraint(equalToConstant: 30),
         ]
         
         NSLayoutConstraint.activate(constraints)
