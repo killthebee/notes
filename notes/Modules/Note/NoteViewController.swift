@@ -28,7 +28,7 @@ class NoteViewController: UIViewController, NoteViewProtocol {
     // MARK: Data -
     var isBoldOn = false
     var isItalicOn = false
-    var isTextInput = false
+    var isTextInput = true
     var possibleFonts: [String: UIFont] = [:]
     let regularFonts: [String: UIFont] = [
         "regular": UIFont.systemFont(ofSize: 15, weight: .regular),
@@ -101,16 +101,18 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             isBoldOn
         ) ?? "regular"
         
-        let targetFont = possibleFonts[fontName]
-        noteInputTextField.typingAttributes?[
-            NSAttributedString.Key.font
-        ] = targetFont
-        
         presenter?.interactor?.makeNewAtrText(
             noteInputTextField.attributedText,
             range: noteInputTextField.selectedRange,
             fontName: fontName
         )
+        
+        let attrtext = noteInputTextField.attributedText
+        let targetFont = possibleFonts[fontName]
+        noteInputTextField.typingAttributes[
+            NSAttributedString.Key.font
+        ] = targetFont
+        noteInputTextField.attributedText = attrtext
     }
     
     @objc
@@ -122,16 +124,18 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             isItalicOn
         ) ?? "regular"
         
-        let targetFont = possibleFonts[fontName]
-        noteInputTextField.typingAttributes?[
-            NSAttributedString.Key.font
-        ] = targetFont
-        
         presenter?.interactor?.makeNewAtrText(
             noteInputTextField.attributedText,
             range: noteInputTextField.selectedRange,
             fontName: fontName
         )
+        
+        let attrtext = noteInputTextField.attributedText
+        let targetFont = possibleFonts[fontName]
+        noteInputTextField.typingAttributes[
+            NSAttributedString.Key.font
+        ] = targetFont
+        noteInputTextField.attributedText = attrtext
     }
     
     @objc
@@ -221,19 +225,19 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         field.textAlignment = .center
         field.textColor = dateColor
         field.placeholder = "header"
+        field.tag = 1337
+        field.delegate = self
         
         return field
     }()
     
-    private let noteInputTextField: InputTextField = {
-        let field = InputTextField()
-        field.backgroundColor = buttonColor
-        field.layer.cornerRadius = 20
-        field.contentVerticalAlignment = .top
-        field.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        field.tag = 1337
+    private let noteInputTextField: UITextView = {
+        let view = UITextView()
+        view.backgroundColor = buttonColor
+        view.layer.cornerRadius = 20
+        view.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         
-        return field
+        return view
     }()
     
     private let imageLable: UILabel = {
@@ -328,31 +332,34 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             self.possibleFonts = self.regularFonts
             
             let targetFont = self.possibleFonts["regular"]
-            
-            self.noteInputTextField.typingAttributes?[
-                NSAttributedString.Key.font
-            ] = targetFont
-            
             self.presenter?.interactor?.makeNewAtrText(
                 self.noteInputTextField.attributedText,
                 range: self.noteInputTextField.selectedRange,
                 fontName: "regular"
             )
+            
+            let attrtext = self.noteInputTextField.attributedText
+            self.noteInputTextField.typingAttributes[
+                NSAttributedString.Key.font
+            ] = targetFont
+            self.noteInputTextField.attributedText = attrtext
+            
         }
         let snell = UIAction(title: "snell", image: nil) { (action) in
             self.possibleFonts = self.snellFonts
             
             let targetFont = self.possibleFonts["regular"]
-            
-            self.noteInputTextField.typingAttributes?[
-                NSAttributedString.Key.font
-            ] = targetFont
-            
             self.presenter?.interactor?.makeNewAtrText(
                 self.noteInputTextField.attributedText,
                 range: self.noteInputTextField.selectedRange,
                 fontName: "regular"
             )
+            
+            let attrtext = self.noteInputTextField.attributedText
+            self.noteInputTextField.typingAttributes[
+                NSAttributedString.Key.font
+            ] = targetFont
+            self.noteInputTextField.attributedText = attrtext
         }
         let menu = UIMenu(
             options: .displayInline,
@@ -375,7 +382,6 @@ class NoteViewController: UIViewController, NoteViewProtocol {
         disableAutoresizing()
         setUpConstrains()
         addToolbars()
-        noteInputTextField.delegate = self
         dateDoneButtonTapped()
         addKeyboardNotifications()
         addTargetActionMethods()
@@ -470,7 +476,6 @@ class NoteViewController: UIViewController, NoteViewProtocol {
             editorButtonsBottomConstraint?.constant = -16
         }
     }
-    
     
     private func addSubviews() {
         [topButtonsContainerView,dateTextField, noteAreaContainer,

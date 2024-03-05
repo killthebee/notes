@@ -24,11 +24,11 @@ extension NoteViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 1337 {
-            isTextInput = true
+            isTextInput = false
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        isTextInput = false
+        isTextInput = true
     }
 }
